@@ -1,10 +1,12 @@
 import { TopBar } from "../Layout";
+import Navbar from "./Navbar";
 
 const Header = () => {
   return (
-    <div>
+    <header>
       <TopBar />
-    </div>
+      <Navbar />
+    </header>
   );
 };
 
