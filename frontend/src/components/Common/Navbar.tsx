@@ -1,5 +1,6 @@
 import { Handbag, Menu, UserRound } from "lucide-react";
 import { Link } from "react-router";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   return (
@@ -54,6 +55,7 @@ const Navbar = () => {
           </button>
 
           {/* Search */}
+          <SearchBar />
           <button className="md:hidden">
             <Menu size={24} className="text-gray-700" />
           </button>

@@ -6,6 +6,12 @@
   --color-rabbit-red: #ea2e0e;
 }
 
+@layer utilities {
+  .flex-center {
+    @apply justify-center items-center;
+  }
+}
+
 #root {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
