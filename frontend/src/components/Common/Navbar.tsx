@@ -55,7 +55,10 @@ const Navbar = () => {
           </button>
 
           {/* Search */}
-          <SearchBar />
+          <div className="overflow-hidden">
+            <SearchBar />
+          </div>
+
           <button className="md:hidden">
             <Menu size={24} className="text-gray-700" />
           </button>
