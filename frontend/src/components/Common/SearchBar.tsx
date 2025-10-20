@@ -1,5 +1,6 @@
 import { Search, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useEscapeKey } from "../../hooks/useEscapeKey";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -7,21 +8,13 @@ const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && isOpen) {
-        setIsOpen(false);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
-
-  useEffect(() => {
     if (inputRef.current && isOpen) {
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  // When using escape this hook helps close the search bar
+  useEscapeKey({ escapeCondition: isOpen, setEscapeCondition: setIsOpen });
 
   const handleSearchToggle = () => {
     setIsOpen((prev) => !prev);
