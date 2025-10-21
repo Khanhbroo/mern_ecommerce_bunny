@@ -96,7 +96,7 @@ const Navbar = () => {
       <div>
         {navDrawerOpen && (
           <div
-            className="inset-0 fixed backdrop-blur-lg"
+            className="inset-0 fixed backdrop-blur-lg z-10"
             onClick={() => setNavDrawerOpen(false)}
           />
         )}
