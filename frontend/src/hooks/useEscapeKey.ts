@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const useEscapeKey = ({
+const useEscapeKey = ({
   escapeCondition,
   setEscapeCondition,
 }: {
@@ -19,3 +19,5 @@ export const useEscapeKey = ({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [escapeCondition, setEscapeCondition]);
 };
+
+export default useEscapeKey;

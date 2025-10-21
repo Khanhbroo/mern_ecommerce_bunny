@@ -1,6 +1,7 @@
-import { Search, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useEscapeKey } from "../../hooks/useEscapeKey";
+import { useEscapeKey } from "../../hooks";
+
+import { Search, X } from "lucide-react";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");

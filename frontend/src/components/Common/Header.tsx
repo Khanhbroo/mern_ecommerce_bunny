@@ -1,5 +1,4 @@
-import { TopBar } from "../Layout";
-import Navbar from "./Navbar";
+import { TopBar, Navbar } from "../Common";
 
 const Header = () => {
   return (

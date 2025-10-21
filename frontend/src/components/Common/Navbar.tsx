@@ -1,10 +1,9 @@
 import { useState } from "react";
-
-import { Handbag, Menu, UserRound, X } from "lucide-react";
 import { Link } from "react-router";
-import SearchBar from "./SearchBar";
-import CartDrawer from "../Layout/CartDrawer";
-import { useEscapeKey } from "../../hooks/useEscapeKey";
+import { useEscapeKey } from "../../hooks";
+
+import { SearchBar, CartDrawer } from "../Common";
+import { Handbag, Menu, UserRound, X } from "lucide-react";
 
 const Navbar = () => {
   const [drawOpen, setDrawOpen] = useState<boolean>(false);

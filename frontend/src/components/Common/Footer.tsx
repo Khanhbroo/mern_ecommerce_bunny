@@ -1,15 +1,16 @@
+import { Link } from "react-router";
+
 import {
   FacebookIcon,
   GithubIcon,
   LinkedinIcon,
   PhoneCallIcon,
 } from "lucide-react";
-import { Link } from "react-router";
 
 const Footer = () => {
   return (
     <footer className="border-t border-gray-300 py-12">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 px-4 lg:px-0">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 md:gap-x-12 xl:gap-8 px-4 xl:px-0">
         <div>
           <h3 className="text-lg text-gray-800 mb-4">Newsletter</h3>
           <p className="text-gray-500 mb-4">
@@ -93,13 +94,13 @@ const Footer = () => {
 
         {/* Follow Us */}
         <div>
-          <h3 className="text-lg text-gray-800 mb-4">Follow Us</h3>
+          <h3 className="text-lg text-gray-800 mb-2">Follow Us</h3>
           <div className="flex items-center space-x-4 mb-6">
             <a
               href="https://github.com/Khanhbroo"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-gray-300 transition-colors"
+              className="hover:text-gray-600 transition-colors"
             >
               <GithubIcon size={20} className="" />
             </a>
@@ -108,7 +109,7 @@ const Footer = () => {
               href="https://www.facebook.com/khanhdq1120/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-gray-300 transition-colors"
+              className="hover:text-gray-600 transition-colors"
             >
               <FacebookIcon size={20} className="" />
             </a>
@@ -117,12 +118,12 @@ const Footer = () => {
               href="https://www.linkedin.com/in/%C4%91o%C3%A0n-qu%E1%BB%91c-khanh-b9458738a/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-gray-300 transition-colors"
+              className="hover:text-gray-600 transition-colors"
             >
               <LinkedinIcon size={20} className="" />
             </a>
           </div>
-          <p className="text-gray-500">Call Us</p>
+          <p className="text-gray-500 mb-2">Call Us</p>
           <p>
             <PhoneCallIcon className="inline-block mr-2" />
             <span className="inline-block translate-y-[1px]">035-751-9498</span>
