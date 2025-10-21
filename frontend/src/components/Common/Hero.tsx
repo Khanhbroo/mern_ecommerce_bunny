@@ -20,7 +20,7 @@ const Hero = () => {
           </p>
           <Link
             to="#"
-            className="bg-white text-gray-950 px-6 py-2 rounded-sm text-lg"
+            className="bg-white text-gray-950 px-6 py-2 rounded-sm text-lg hover:bg-white/90 transition-colors"
           >
             Shop Now
           </Link>

@@ -10,6 +10,11 @@
   .flex-center {
     @apply justify-center items-center;
   }
+
+  .custom-scrollbar {
+    scroll-behavior: smooth;
+    scrollbar-color: #771f10d1 transparent;
+  }
 }
 
 #root {
@@ -20,4 +25,8 @@
 
 button {
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

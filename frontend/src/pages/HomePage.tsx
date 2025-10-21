@@ -1,11 +1,12 @@
 import { Hero } from "../components/Common";
-import { GenderCollectionSection } from "../components/Products";
+import { GenderCollectionSection, NewArrival } from "../components/Products";
 
 const HomePage = () => {
   return (
     <div>
       <Hero />
       <GenderCollectionSection />
+      <NewArrival />
     </div>
   );
 };
