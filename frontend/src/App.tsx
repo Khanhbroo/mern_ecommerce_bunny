@@ -13,6 +13,8 @@ function App() {
           </Route>
 
           <Route path="/admin" element={<AdminLayout />}></Route>
+
+          <Route path="*" element={<p>Not found</p>} />
         </Routes>
       </BrowserRouter>
     </>
