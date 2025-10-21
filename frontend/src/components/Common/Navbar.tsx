@@ -8,7 +8,7 @@ import { useEscapeKey } from "../../hooks/useEscapeKey";
 
 const Navbar = () => {
   const [drawOpen, setDrawOpen] = useState<boolean>(false);
-  const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(true);
+  const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
 
   const toggleNavDrawer = () => {
     setNavDrawerOpen((prev) => !prev);
