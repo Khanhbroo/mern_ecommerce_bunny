@@ -4,3 +4,4 @@ export { default as SearchBar } from "./SearchBar";
 export { default as Footer } from "./Footer";
 export { default as CartDrawer } from "./CartDrawer";
 export { default as TopBar } from "./TopBar";
+export { default as Hero } from "./Hero";
