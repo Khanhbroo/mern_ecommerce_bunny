@@ -1,6 +1,9 @@
 import { Hero } from "../components/Common";
-import { GenderCollectionSection, NewArrival } from "../components/Products";
-import ProductDetails from "../components/Products/ProductDetails";
+import {
+  GenderCollectionSection,
+  NewArrival,
+  ProductDetails,
+} from "../components/Products";
 
 const HomePage = () => {
   return (

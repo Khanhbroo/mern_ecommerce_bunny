@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+
 import { toast } from "sonner";
+import ProductGrid from "./ProductGrid";
 
 const selectedProduct = {
   name: "Stylish Jacket",
@@ -74,7 +76,7 @@ const ProductDetails = () => {
       <div className="max-w-6xl mx-auto bg-white p-8 rounded-lg">
         <div className="flex flex-col-reverse mb-4 md:flex-row">
           {/* Left Thumbnails */}
-          <div className="flex flex-row overflow-x-scroll space-x-4 md:flex-col space-y-4 mr-6">
+          <div className="flex flex-row max-sm:overflow-x-scroll space-x-4 md:flex-col space-y-4 mr-6">
             {selectedProduct.images.map((image, index) => (
               <img
                 key={index}
@@ -203,6 +205,13 @@ const ProductDetails = () => {
               </table>
             </div>
           </div>
+        </div>
+
+        <div className="mt-20">
+          <h2 className="text-2xl text-center font-medium mb-4">
+            You May Also Like
+          </h2>
+          {/* <ProductGrid product={similarProducts} /> */}
         </div>
       </div>
     </div>
