@@ -109,6 +109,8 @@ const NewArrival = () => {
     if (container) {
       container?.addEventListener("scroll", updateScrollButtons);
       updateScrollButtons();
+      return () =>
+        container?.removeEventListener("scroll", updateScrollButtons);
     }
   }, []);
 
@@ -149,9 +151,7 @@ const NewArrival = () => {
     const x = event.pageX - scrollRef.current.offsetLeft;
     const walk = x - startX;
 
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollLeft - walk * 1.5;
-    }
+    scrollRef.current.scrollLeft = scrollLeft - walk * 3;
   };
 
   const handleMouseUpOrLeave = () => {
@@ -159,7 +159,7 @@ const NewArrival = () => {
   };
 
   return (
-    <section className="pb-20 sm:pb-12">
+    <section className="pb-20 sm:pb-12 pt-4 px-4 lg:px-0">
       <div className="container mx-auto text-center mb-2 sm:mb-10 relative">
         <h2 className="text-3xl font-bold mb-4">Explore New Arrivals</h2>
         <p className="text-lg text-gray-600 mb-4 sm:mb-8">
