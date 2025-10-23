@@ -24,6 +24,33 @@ const selectedProduct = {
   ],
 };
 
+const similarProducts = [
+  {
+    _id: 1,
+    name: "Product 1",
+    price: 100,
+    images: [{ url: "https://picsum.photos/500/500?random=3" }],
+  },
+  {
+    _id: 2,
+    name: "Product 2",
+    price: 100,
+    images: [{ url: "https://picsum.photos/500/500?random=4" }],
+  },
+  {
+    _id: 3,
+    name: "Product 3",
+    price: 100,
+    images: [{ url: "https://picsum.photos/500/500?random=5" }],
+  },
+  {
+    _id: 4,
+    name: "Product 4",
+    price: 100,
+    images: [{ url: "https://picsum.photos/500/500?random=6" }],
+  },
+];
+
 const ProductDetails = () => {
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string>("");
@@ -82,8 +109,10 @@ const ProductDetails = () => {
                 key={index}
                 src={image.url}
                 alt={image.altText || `Thumbnail ${index}`}
-                className={`w-20 h-20 object-cover rounded-lg cursor-pointer border ${
-                  mainImage === image.url ? "border-black" : "border-gray-300"
+                className={`w-20 h-20 object-cover rounded-lg cursor-pointer border hover:brightness-75 transition-all ${
+                  mainImage === image.url
+                    ? "border-black border-2"
+                    : "border-gray-300"
                 }`}
                 onClick={() => setMainImage(image.url)}
               />
@@ -211,7 +240,7 @@ const ProductDetails = () => {
           <h2 className="text-2xl text-center font-medium mb-4">
             You May Also Like
           </h2>
-          {/* <ProductGrid product={similarProducts} /> */}
+          <ProductGrid products={similarProducts} />
         </div>
       </div>
     </div>

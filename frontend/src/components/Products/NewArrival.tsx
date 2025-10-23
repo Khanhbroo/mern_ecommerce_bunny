@@ -188,12 +188,16 @@ const NewArrival = () => {
               <img
                 src={product.images[0]?.url}
                 alt={product.images[0]?.altText || product.name}
-                className="w-full h-[500px] object-cover rounded-lg"
+                className="w-full h-[500px] object-cover rounded-lg hover:brightness-75 transition-all"
                 draggable="false"
               />
 
               <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md text-white p-4 rounded-b-lg">
-                <Link to={`/product/${product._id}`} className="block">
+                <Link
+                  to={`/product/${product._id}`}
+                  className="block"
+                  target="_blank"
+                >
                   <h4 className="font-medium">{product.name}</h4>
                   <p className="mt-1">${product.price}</p>
                 </Link>
