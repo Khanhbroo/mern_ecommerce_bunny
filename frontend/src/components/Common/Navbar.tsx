@@ -75,7 +75,7 @@ const Navbar = () => {
             onClick={toggleCartDrawer}
           >
             <Handbag size={24} className="text-gray-700" />
-            <span className="absolute bg-rabbit-red text-white text-xs rounded-full px-2 py-0.5 -top-1  translate-x-[1px]">
+            <span className="absolute bg-bunny-red text-white text-xs rounded-full px-2 py-0.5 -top-1  translate-x-[1px]">
               4
             </span>
           </button>

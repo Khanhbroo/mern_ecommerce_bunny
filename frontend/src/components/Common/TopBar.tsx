@@ -4,7 +4,7 @@ import { Facebook, Github, Linkedin } from "lucide-react";
 
 const TopBar = () => {
   return (
-    <div className="bg-rabbit-red text-white">
+    <div className="bg-bunny-red text-white">
       <div className="container mx-auto flex md:justify-between items-center px-4 py-3">
         <div className="hidden md:flex items-center gap-4">
           <a
