@@ -1,11 +1,12 @@
 import { Hero } from "../components/Common";
 import {
+  FeaturedCollection,
+  FeaturesSection,
   GenderCollectionSection,
   NewArrival,
   ProductDetails,
   ProductGrid,
 } from "../components/Products";
-import FeaturedCollection from "../components/Products/FeaturedCollection";
 
 const placeholderProducts = [
   {
@@ -79,6 +80,7 @@ const HomePage = () => {
       </div>
 
       <FeaturedCollection />
+      <FeaturesSection />
     </div>
   );
 };
