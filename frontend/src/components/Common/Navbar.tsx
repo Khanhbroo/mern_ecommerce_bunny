@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router";
 import { useEscapeKey } from "../../hooks";
 
 import { SearchBar, CartDrawer } from "../Common";
 import { Handbag, Menu, UserRound, X } from "lucide-react";
+import useClickOutside from "../../hooks/useClickOutside";
 
 const Navbar = () => {
   const [drawOpen, setDrawOpen] = useState<boolean>(false);
   const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   const toggleNavDrawer = () => {
     setNavDrawerOpen((prev) => !prev);
@@ -25,6 +27,9 @@ const Navbar = () => {
     escapeCondition: navDrawerOpen,
     setEscapeCondition: setNavDrawerOpen,
   });
+
+  // When clicking outside the sidebar, it will be hidden
+  useClickOutside(sidebarRef, () => setNavDrawerOpen(false));
 
   return (
     <>
@@ -90,7 +95,11 @@ const Navbar = () => {
           </button>
         </div>
       </nav>
-      <CartDrawer drawOpen={drawOpen} toggleCartDrawer={toggleCartDrawer} />
+      <CartDrawer
+        drawOpen={drawOpen}
+        setDrawOpen={setDrawOpen}
+        toggleCartDrawer={toggleCartDrawer}
+      />
 
       {/* Mobile Navigation */}
       <div>
@@ -101,10 +110,10 @@ const Navbar = () => {
           />
         )}
         <div
+          ref={sidebarRef}
           className={`fixed top-0 left-0 w-34 sm:w-1/2 md:w-1/3 h-full rounded-tr-2xl rounded-br-2xl bg-white shadow-lg transition-transform duration-300 z-50 ${
             navDrawerOpen ? "translate-x-0" : "-translate-x-full"
           }`}
-          onClick={(event) => event.stopPropagation()}
         >
           <div className="flex justify-end p-4">
             <button onClick={() => setNavDrawerOpen(false)}>

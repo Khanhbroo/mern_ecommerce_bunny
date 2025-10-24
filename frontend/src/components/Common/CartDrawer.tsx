@@ -1,13 +1,22 @@
+import { useRef } from "react";
+
 import { X } from "lucide-react";
 import CartContents from "../Cart/CartContents";
+import useClickOutside from "../../hooks/useClickOutside";
 
 const CartDrawer = ({
   drawOpen,
+  setDrawOpen,
   toggleCartDrawer,
 }: {
   drawOpen: boolean;
+  setDrawOpen: (open: boolean) => void;
   toggleCartDrawer: () => void;
 }) => {
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(sidebarRef, () => setDrawOpen(false));
+
   return (
     <div>
       {/* If the drawer is open, there will be a backdrop blur */}
@@ -20,10 +29,10 @@ const CartDrawer = ({
         />
       )}
       <div
+        ref={sidebarRef}
         className={`fixed top-0 right-0 w-3/4 sm:w-1/2 xl:w-1/4 h-full bg-white shadow-2xl rounded-tl-2xl rounded-bl-2xl transition-transform duration-300 flex flex-col z-50 ${
           drawOpen ? "translate-x-0" : "translate-x-full"
         }`}
-        onClick={(event) => event.stopPropagation()}
       >
         {/* Close Button */}
         <div className="flex justify-end p-4">
