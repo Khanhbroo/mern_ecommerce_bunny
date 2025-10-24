@@ -1,7 +1,13 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Link, Route, Routes } from "react-router";
 
 import { UserLayout, AdminLayout } from "./components/Layout";
-import { HomePage, LoginPage, ProfilePage, RegisterPage } from "./pages";
+import {
+  CollectionPage,
+  HomePage,
+  LoginPage,
+  ProfilePage,
+  RegisterPage,
+} from "./pages";
 import { Toaster } from "sonner";
 
 function App() {
@@ -15,11 +21,28 @@ function App() {
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route
+              path="collection/:collectionId"
+              element={<CollectionPage />}
+            />
           </Route>
 
           <Route path="/admin" element={<AdminLayout />}></Route>
 
-          <Route path="*" element={<p>Not found</p>} />
+          <Route
+            path="*"
+            element={
+              <>
+                <p>Not found</p>
+                <Link
+                  to="/"
+                  className="py-4 px-6 bg-gray-500 hover:bg-gray-400 transition-colors rounded-full text-white inline-block"
+                >
+                  Back to Home
+                </Link>
+              </>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>
