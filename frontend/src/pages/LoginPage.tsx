@@ -3,14 +3,22 @@ import { Link } from "react-router";
 
 import login from "/login.webp";
 
-const Login = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log("User Login", { email, password });
+  };
 
   return (
     <div className="flex">
       <div className="w-full md:w-1/2 flex flex-col flex-center p-8 md:p-12">
-        <form className="w-full max-w-md bg-white p-8 rounded-lg border border-gray-300 shadow-md">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-md bg-white p-8 rounded-lg border border-gray-300 shadow-md"
+        >
           <div className="flex flex-center mb-6">
             <h2 className="text-xl font-medium">Bunny</h2>
           </div>
@@ -62,8 +70,12 @@ const Login = () => {
             Sign In
           </button>
 
-          <p className="mt-6 text-center text-sm">Don't have an account yet?</p>
-          <Link to="/register" className="text-blue-500"></Link>
+          <p className="mt-6 text-center text-sm">
+            Don't have an account yet?{" "}
+            <Link to="/register" className="text-blue-500">
+              Register
+            </Link>
+          </p>
         </form>
       </div>
 
@@ -80,4 +92,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

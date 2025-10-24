@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import { UserLayout, AdminLayout } from "./components/Layout";
-import { HomePage, Login } from "./pages";
+import { HomePage, LoginPage, ProfilePage, RegisterPage } from "./pages";
 import { Toaster } from "sonner";
 
 function App() {
@@ -12,7 +12,9 @@ function App() {
         <Routes>
           <Route path="/" element={<UserLayout />}>
             <Route index element={<HomePage />} />
-            <Route path="login" element={<Login />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="profile" element={<ProfilePage />} />
           </Route>
 
           <Route path="/admin" element={<AdminLayout />}></Route>
