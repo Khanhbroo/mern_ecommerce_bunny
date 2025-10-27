@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router";
 import type { filtersSidebar } from "../../type/filtersSidebar";
+import RadioRow from "../Common/RadioRow";
 
 const FilterSidebar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,6 +16,7 @@ const FilterSidebar = () => {
     maxPrice: 100,
   });
   const [priceRange, setPriceRange] = useState<Array<number>>([0, 100]);
+  const filterInputRef = useRef<HTMLInputElement | null>(null);
 
   const categories = ["Top Wear", "Bottom Wear"];
   const colors = [
@@ -72,17 +74,31 @@ const FilterSidebar = () => {
 
       {/* Category Filter */}
       <div className="mb-6">
-        <label className="block text-gray-600 font-medium mb-2">Category</label>
+        <label
+          htmlFor="category"
+          className="block text-gray-600 font-medium mb-2"
+        >
+          Category
+        </label>
         {categories.map((category) => (
-          <div key={category} className="flex items-center mb-1">
-            <input
-              type="radio"
-              name="category"
-              className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
-            />
+          <RadioRow key={category} name="category">
+            {category}
+          </RadioRow>
+        ))}
+      </div>
 
-            <span className="text-gray-700">{category}</span>
-          </div>
+      {/* Gender Filter */}
+      <div className="mb-6">
+        <label
+          htmlFor="gender"
+          className="block text-gray-600 font-medium mb-2"
+        >
+          Gender
+        </label>
+        {genders.map((gender) => (
+          <RadioRow key={gender} name="gender">
+            {gender}
+          </RadioRow>
         ))}
       </div>
     </div>

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import type { mockProducts } from "../type/products";
 import { FilterIcon } from "lucide-react";
 import { FilterSidebar } from "../components/Products";
+import useClickOutside from "../hooks/useClickOutside";
 
 const fetchedProducts = [
   {
@@ -56,8 +57,9 @@ const fetchedProducts = [
 ] as mockProducts;
 
 const CollectionPage = () => {
-  const [products, setProducts] = useState<mockProducts>([]);
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [products, setProducts] = useState<mockProducts>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -66,29 +68,17 @@ const CollectionPage = () => {
     }, 2000);
   }, []);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useClickOutside(sidebarRef, () => setIsSidebarOpen(false), buttonRef);
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
-  };
-
-  const handleClickOutside = (event: MouseEvent) => {
-    // Close sidebar if clicked outside
-    if (
-      sidebarRef.current &&
-      !sidebarRef.current.contains(event.target as Node)
-    ) {
-      setIsSidebarOpen(false);
-    }
   };
 
   return (
     <div className="flex flex-col lg:flex-row">
       {/* Mobile Filter Button */}
       <button
+        ref={buttonRef}
         className="lg:hidden border border-gray-200 p-2 flex justify-end items-center"
         onClick={toggleSidebar}
       >
@@ -98,7 +88,9 @@ const CollectionPage = () => {
       {/* Filter Sidebar */}
       <div
         ref={sidebarRef}
-        className={`${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } fixed inset-y-0 z-50 left-0 w-64 bg-white overflow-y-auto transition-transform duration-300 lg:static lg:transition-x-0f`}
       >
         <FilterSidebar />
       </div>
