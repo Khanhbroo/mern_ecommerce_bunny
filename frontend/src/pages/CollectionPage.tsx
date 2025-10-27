@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 
 import type { mockProducts } from "../type/products";
 import { FilterIcon } from "lucide-react";
-import { FilterSidebar } from "../components/Products";
+import { FilterSidebar, ProductGrid } from "../components/Products";
 import useClickOutside from "../hooks/useClickOutside";
+import SortOption from "../components/Products/SortOption";
 
 const fetchedProducts = [
   {
@@ -90,9 +91,19 @@ const CollectionPage = () => {
         ref={sidebarRef}
         className={`${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } fixed inset-y-0 z-50 left-0 w-64 bg-white overflow-y-auto transition-transform duration-300 lg:static lg:transition-x-0f`}
+        } fixed inset-y-0 z-50 left-0 w-64 bg-white overflow-y-auto transition-transform duration-300 lg:static lg:translate-x-0`}
       >
         <FilterSidebar />
+      </div>
+
+      <div className="flex-grow p-4">
+        <h2 className="text-2xl uppercase mb-4">All Collection</h2>
+
+        {/* Sort Options */}
+        <SortOption />
+
+        {/* Product Grid */}
+        <ProductGrid products={products} />
       </div>
     </div>
   );

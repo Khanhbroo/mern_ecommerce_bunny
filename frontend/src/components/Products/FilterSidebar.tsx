@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router";
 import type { filtersSidebar } from "../../type/filtersSidebar";
 import RadioRow from "../Common/RadioRow";
+import CheckboxRow from "../Common/CheckboxRow";
+import type { ReactFormState } from "react-dom/client";
 
 const FilterSidebar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,7 +17,7 @@ const FilterSidebar = () => {
     minPrice: 0,
     maxPrice: 100,
   });
-  const [priceRange, setPriceRange] = useState<Array<number>>([0, 100]);
+  const [priceRange, setPriceRange] = useState<Array<number>>([0, 1000]);
   const filterInputRef = useRef<HTMLInputElement | null>(null);
 
   const categories = ["Top Wear", "Bottom Wear"];
@@ -63,7 +65,7 @@ const FilterSidebar = () => {
       material: params.material ? params.material.split(",") : [],
       brand: params.brand ? params.band.split(",") : [],
       minPrice: parseFloat(params.minPrice) || 0,
-      maxPrice: parseFloat(params.maxPrice) || 0,
+      maxPrice: parseFloat(params.maxPrice) || 1000,
     });
     setPriceRange([filters.minPrice, filters.maxPrice]);
   }, [searchParams]);
@@ -100,6 +102,79 @@ const FilterSidebar = () => {
             {gender}
           </RadioRow>
         ))}
+      </div>
+
+      {/* Color Filter */}
+      <div className="mb-6">
+        <label htmlFor="color" className="block text-grau-600 font-medium mb-2">
+          Color
+        </label>
+        <div className="flex flex-wrap gap-2">
+          {colors.map((color) => (
+            <button
+              key={color}
+              name="color"
+              className="w-8 h-8 rounded-full border border-gray-300 cursor-pointer transition hover:scale-105"
+              style={{
+                backgroundColor: color.toLowerCase(),
+              }}
+            ></button>
+          ))}
+        </div>
+      </div>
+
+      {/* Material Filter */}
+      <div className="mb-6">
+        <label htmlFor="" className="block text-gray-600 font-medium mb-2">
+          Material
+        </label>
+        {materials.map((material) => (
+          <CheckboxRow key={material} name={material}>
+            {material}
+          </CheckboxRow>
+        ))}
+      </div>
+
+      {/* Size Filter */}
+      <div className="mb-6">
+        <label htmlFor="" className="block text-gray-600 font-medium mb-2">
+          Size
+        </label>
+        {sizes.map((size) => (
+          <CheckboxRow key={size} name={size}>
+            {size}
+          </CheckboxRow>
+        ))}
+      </div>
+
+      {/* Brand Filter */}
+      <div className="mb-6">
+        <label htmlFor="brand" className="block text-gray-600 font-medium mb-2">
+          Brand
+        </label>
+        {brands.map((brand) => (
+          <CheckboxRow key={brand} name={brand}>
+            {brand}
+          </CheckboxRow>
+        ))}
+      </div>
+
+      {/* Price Range Filter */}
+      <div className="mb-8">
+        <label htmlFor="price" className="block text-gray-600 font-medium mb-2">
+          Price Range
+        </label>
+        <input
+          type="range"
+          name="price"
+          min={0}
+          max={1000}
+          className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+        />
+        <div className="flex justify-between text-gray-600 mt-2">
+          <span>${priceRange[0]}</span>
+          <span>${priceRange[1]}</span>
+        </div>
       </div>
     </div>
   );
