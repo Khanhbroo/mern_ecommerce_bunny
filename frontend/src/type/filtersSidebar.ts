@@ -7,4 +7,5 @@ export type filtersSidebar = {
   brand: string[];
   minPrice: number;
   maxPrice: number;
+  [key: string]: string | string[] | number;
 };
