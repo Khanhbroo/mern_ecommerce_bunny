@@ -112,6 +112,7 @@ const FilterSidebar = () => {
         params.append(key, newFilters[key]);
       }
     });
+
     setSearchParams(params);
     navigate(`?${params.toString()}`);
   };
