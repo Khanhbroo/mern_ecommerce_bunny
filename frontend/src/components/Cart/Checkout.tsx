@@ -24,6 +24,7 @@ const cart = {
   get totalPrice() {
     return this.products.reduce((sum, product) => sum + product.price, 0);
   },
+  shippingFee: 0,
 };
 
 const Checkout = () => {
@@ -246,11 +247,34 @@ const Checkout = () => {
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-20 h-24 object-cover mr0-4"
+                  className="w-20 h-24 object-cover mr-4"
                 />
+
+                <div>
+                  <h3 className="text-md">{product.name}</h3>
+                  <p className="text-gray-500">Size: {product.size}</p>
+                  <p className="text-gray-500">Color: {product.color}</p>
+                </div>
               </div>
+
+              <p className="text-xl">${product.price?.toLocaleString()}</p>
             </div>
           ))}
+        </div>
+
+        <div className="flex justify-between items-center text-lg mb-4">
+          <p>Subtotal</p>
+          <p>${cart.totalPrice?.toLocaleString()}</p>
+        </div>
+
+        <div className="flex justify-between items-center text-lg">
+          <p>Shipping</p>
+          <p>{cart.shippingFee ? `$${cart.shippingFee}` : "Free"}</p>
+        </div>
+
+        <div className="flex justify-between items-center text-lg mt-4 border-t border-gray-300 pt-4">
+          <p>Total</p>
+          <p>${(cart.totalPrice - cart.shippingFee).toLocaleString()}</p>
         </div>
       </div>
     </div>

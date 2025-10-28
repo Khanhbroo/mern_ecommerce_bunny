@@ -5,6 +5,7 @@ import {
   CollectionPage,
   HomePage,
   LoginPage,
+  OrderConfirmationPage,
   ProfilePage,
   RegisterPage,
 } from "./pages";
@@ -29,6 +30,10 @@ function App() {
             />
             <Route path="product/:id" element={<ProductDetails />} />
             <Route path="checkout" element={<Checkout />} />
+            <Route
+              path="order-confirmation"
+              element={<OrderConfirmationPage />}
+            />
           </Route>
 
           <Route path="/admin" element={<AdminLayout />}></Route>
