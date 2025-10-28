@@ -81,6 +81,11 @@ const FilterSidebar = () => {
     setPriceRange([newFilters.minPrice, newFilters.maxPrice]);
   }, [searchParams]);
 
+  const handleClearFilter = () => {
+    const params = new URLSearchParams();
+    setSearchParams(params);
+  };
+
   const handleFilterChange = (event: HTMLInputElement) => {
     const { name, value, checked, type } = event;
 
@@ -127,7 +132,15 @@ const FilterSidebar = () => {
 
   return (
     <div className="p-4">
-      <h3 className="text-xl font-medium text-gray-800 mb-4">Filter</h3>
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-lg font-semibold text-gray-800">Filters</h2>
+        <button
+          className="text-sm text-gray-500 hover:text-bunny-red transition"
+          onClick={handleClearFilter}
+        >
+          Clear all
+        </button>
+      </div>
 
       {/* Category Filter */}
       <div className="mb-6">

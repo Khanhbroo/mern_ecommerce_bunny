@@ -9,6 +9,7 @@ import {
   RegisterPage,
 } from "./pages";
 import { Toaster } from "sonner";
+import { ProductDetails } from "./components/Products";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               path="collection/:collectionId"
               element={<CollectionPage />}
             />
+            <Route path="product/:id" element={<ProductDetails />} />
           </Route>
 
           <Route path="/admin" element={<AdminLayout />}></Route>
@@ -32,15 +34,17 @@ function App() {
           <Route
             path="*"
             element={
-              <>
-                <p>Not found</p>
+              <div className="min-h-screen flex flex-col flex-center container p-8 mx-auto">
+                <p className="font-medium text-3xl lg:text-4xl mb-12">
+                  Sorry, it's seem like you've entered the wrong URL
+                </p>
                 <Link
                   to="/"
                   className="py-4 px-6 bg-gray-500 hover:bg-gray-400 transition-colors rounded-full text-white inline-block"
                 >
                   Back to Home
                 </Link>
-              </>
+              </div>
             }
           />
         </Routes>

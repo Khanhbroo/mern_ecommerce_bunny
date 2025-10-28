@@ -6,7 +6,9 @@ const SortOption = () => {
 
   const handleSortChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const sortBy = event.target.value;
-    searchParams.set("sortBy", sortBy);
+    const params = new URLSearchParams();
+    params.set("sortBy", sortBy);
+    setSearchParams(params);
   };
 
   return (
@@ -14,6 +16,7 @@ const SortOption = () => {
       <select
         name="sort"
         id="sort"
+        value={searchParams.get("sortBy") || ""}
         className="border p-2 rounded-md focus:outline-none"
         onChange={handleSortChange}
       >

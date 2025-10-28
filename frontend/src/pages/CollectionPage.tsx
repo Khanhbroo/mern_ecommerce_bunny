@@ -5,6 +5,7 @@ import { FilterIcon } from "lucide-react";
 import { FilterSidebar, ProductGrid } from "../components/Products";
 import useClickOutside from "../hooks/useClickOutside";
 import SortOption from "../components/Products/SortOption";
+import { useEscapeKey } from "../hooks";
 
 const fetchedProducts = [
   {
@@ -69,6 +70,10 @@ const CollectionPage = () => {
     }, 2000);
   }, []);
 
+  useEscapeKey({
+    escapeCondition: isSidebarOpen,
+    setEscapeCondition: setIsSidebarOpen,
+  });
   useClickOutside(sidebarRef, () => setIsSidebarOpen(false), buttonRef);
 
   const toggleSidebar = () => {
