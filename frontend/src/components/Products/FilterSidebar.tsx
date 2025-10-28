@@ -1,21 +1,14 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  type HTMLInputTypeAttribute,
-  type InputEventHandler,
-} from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
-import type { filtersSidebar } from "../../type/filtersSidebar";
-import RadioRow from "../Common/RadioRow";
-import CheckboxRow from "../Common/CheckboxRow";
-import type { ReactFormState } from "react-dom/client";
+
+import { RadioRow, CheckboxRow } from "../Common";
+import { type FiltersSidebar } from "../../type/filtersSidebar";
 import type { InputType } from "zlib";
 
 const FilterSidebar = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [filters, setFitlers] = useState<filtersSidebar>({
+  const [filters, setFitlers] = useState<FiltersSidebar>({
     category: "",
     gender: "",
     color: "",
@@ -26,7 +19,6 @@ const FilterSidebar = () => {
     maxPrice: 1000,
   });
   const [priceRange, setPriceRange] = useState<Array<number>>([0, 1000]);
-  const filterInputRef = useRef<HTMLInputElement | null>(null);
 
   const categories = ["Top Wear", "Bottom Wear"];
   const colors = [
@@ -89,7 +81,7 @@ const FilterSidebar = () => {
   const handleFilterChange = (event: HTMLInputElement) => {
     const { name, value, checked, type } = event;
 
-    const newFilters = { ...filters } as filtersSidebar;
+    const newFilters = { ...filters } as FiltersSidebar;
 
     if (type === "checkbox") {
       const mutipleItems = newFilters[name] as string[];

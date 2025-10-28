@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import { useEscapeKey, useClickOutside } from "../hooks";
 
-import type { mockProducts } from "../type/products";
-import { FilterIcon } from "lucide-react";
+import type { MockProducts } from "../type/products";
 import { FilterSidebar, ProductGrid } from "../components/Products";
-import useClickOutside from "../hooks/useClickOutside";
 import SortOption from "../components/Products/SortOption";
-import { useEscapeKey } from "../hooks";
+import { FilterIcon } from "lucide-react";
 
 const fetchedProducts = [
   {
@@ -56,12 +55,12 @@ const fetchedProducts = [
     price: 100,
     images: [{ url: "https://picsum.photos/500/500?random=10" }],
   },
-] as mockProducts;
+] as MockProducts;
 
 const CollectionPage = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const [products, setProducts] = useState<mockProducts>([]);
+  const [products, setProducts] = useState<MockProducts>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router";
+import { useClickOutside } from "../../hooks";
 import { useEscapeKey } from "../../hooks";
+import { Link } from "react-router";
 
 import { SearchBar, CartDrawer } from "../Common";
 import { Handbag, Menu, UserRound, X } from "lucide-react";
-import useClickOutside from "../../hooks/useClickOutside";
 
 const Navbar = () => {
   const [drawOpen, setDrawOpen] = useState<boolean>(false);

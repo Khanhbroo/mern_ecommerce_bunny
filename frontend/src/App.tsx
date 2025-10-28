@@ -10,6 +10,7 @@ import {
 } from "./pages";
 import { Toaster } from "sonner";
 import { ProductDetails } from "./components/Products";
+import { Checkout } from "./components/Cart";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               element={<CollectionPage />}
             />
             <Route path="product/:id" element={<ProductDetails />} />
+            <Route path="checkout" element={<Checkout />} />
           </Route>
 
           <Route path="/admin" element={<AdminLayout />}></Route>

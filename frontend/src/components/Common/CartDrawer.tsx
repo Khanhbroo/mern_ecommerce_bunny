@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router";
 import { useRef } from "react";
+import { useClickOutside } from "../../hooks";
 
 import { X } from "lucide-react";
-import CartContents from "../Cart/CartContents";
-import useClickOutside from "../../hooks/useClickOutside";
+import { CartContents } from "../Cart";
 
 const CartDrawer = ({
   drawOpen,
@@ -13,9 +14,15 @@ const CartDrawer = ({
   setDrawOpen: (open: boolean) => void;
   toggleCartDrawer: () => void;
 }) => {
+  const navigate = useNavigate();
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(sidebarRef, () => setDrawOpen(false));
+
+  const handleCheckout = () => {
+    setDrawOpen(false);
+    navigate("/checkout");
+  };
 
   return (
     <div>
@@ -50,7 +57,10 @@ const CartDrawer = ({
 
         {/* Checkout button fixed at the bottom */}
         <div className="p-4 bg-white sticky bottom-0">
-          <button className="w-full bg-black text-white py-3 rounded-xl font-semibold tracking-wide hover:bg-gray-800 transition-colors duration-200">
+          <button
+            className="w-full bg-black text-white py-3 rounded-xl font-semibold tracking-wide hover:bg-gray-800 transition-colors duration-200"
+            onClick={handleCheckout}
+          >
             Checkout
           </button>
           <p className="text-sm tracking-tighter text-gray-500 mt-2 text-center">

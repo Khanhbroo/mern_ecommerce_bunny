@@ -1,4 +1,4 @@
-export type filtersSidebar = {
+export type FiltersSidebar = {
   category: string;
   gender: string;
   color: string;

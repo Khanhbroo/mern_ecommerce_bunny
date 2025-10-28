@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { toast } from "sonner";
 import ProductGrid from "./ProductGrid";
-import type { mockProducts } from "../../type/products";
+import type { MockProducts } from "../../type/products";
 
 const selectedProduct = {
   name: "Stylish Jacket",
@@ -50,7 +50,7 @@ const similarProducts = [
     price: 100,
     images: [{ url: "https://picsum.photos/500/500?random=6" }],
   },
-] as mockProducts;
+] as MockProducts;
 
 const ProductDetails = () => {
   const [mainImage, setMainImage] = useState<string | null>(null);

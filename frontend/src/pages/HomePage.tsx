@@ -7,7 +7,7 @@ import {
   ProductDetails,
   ProductGrid,
 } from "../components/Products";
-import type { mockProducts } from "../type/products";
+import type { MockProducts } from "../type/products";
 
 const placeholderProducts = [
   {
@@ -58,7 +58,7 @@ const placeholderProducts = [
     price: 100,
     images: [{ url: "https://picsum.photos/500/500?random=10" }],
   },
-] as mockProducts;
+] as MockProducts;
 
 const HomePage = () => {
   return (

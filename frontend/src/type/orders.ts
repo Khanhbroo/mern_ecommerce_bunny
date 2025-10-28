@@ -1,4 +1,4 @@
-export type mockOrders = {
+export type MockOrders = {
   _id: string;
   createdAt: Date;
   shippingAddress: {

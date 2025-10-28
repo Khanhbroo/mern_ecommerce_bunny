@@ -1,7 +1,7 @@
 import { Link } from "react-router";
-import type { mockProducts } from "../../type/products";
+import type { MockProducts } from "../../type/products";
 
-const ProductGrid = ({ products }: { products: mockProducts }) => {
+const ProductGrid = ({ products }: { products: MockProducts }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
       {products.map((product, index) => (

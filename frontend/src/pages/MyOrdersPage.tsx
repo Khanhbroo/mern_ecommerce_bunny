@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import type { mockOrders } from "../type/orders";
+import type { MockOrders } from "../type/orders";
 
 const MyOrdersPage = () => {
-  const [orders, setOrders] = useState<mockOrders>();
+  const [orders, setOrders] = useState<MockOrders>();
 
   useEffect(() => {
     // Simulate fetching orders
