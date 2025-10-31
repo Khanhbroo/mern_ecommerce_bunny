@@ -5,7 +5,9 @@ import {
   CollectionPage,
   HomePage,
   LoginPage,
+  MyOrdersPage,
   OrderConfirmationPage,
+  OrderDetailsPage,
   ProfilePage,
   RegisterPage,
 } from "./pages";
@@ -34,6 +36,8 @@ function App() {
               path="order-confirmation"
               element={<OrderConfirmationPage />}
             />
+            <Route path="order/:id" element={<OrderDetailsPage />} />
+            <Route path="my-orders" element={<MyOrdersPage />} />
           </Route>
 
           <Route path="/admin" element={<AdminLayout />}></Route>

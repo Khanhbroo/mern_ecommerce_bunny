@@ -83,7 +83,7 @@ const MyOrdersPage = () => {
               orders.map((order) => (
                 <tr
                   key={order._id}
-                  className="border-b hover:border-gray-50 cursor-pointer last:border-b-0"
+                  className="border-b border-gray-300 hover:border-gray-500 transition cursor-pointer last:border-b-0"
                 >
                   <td className="pyf-2 px-2 sm:py-4 sm:px-4">
                     <img

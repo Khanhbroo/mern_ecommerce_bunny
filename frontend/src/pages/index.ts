@@ -5,3 +5,4 @@ export { default as ProfilePage } from "./ProfilePage";
 export { default as MyOrdersPage } from "./MyOrdersPage";
 export { default as CollectionPage } from "./CollectionPage";
 export { default as OrderConfirmationPage } from "./OrderConfirmationPage";
+export { default as OrderDetailsPage } from "./OrderDetailsPage";
