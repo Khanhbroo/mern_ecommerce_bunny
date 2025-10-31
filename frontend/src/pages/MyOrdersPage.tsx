@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 import type { MockOrders } from "../type/orders";
 
 const MyOrdersPage = () => {
   const [orders, setOrders] = useState<MockOrders>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Simulate fetching orders
@@ -59,8 +61,12 @@ const MyOrdersPage = () => {
         },
       ];
       setOrders(mockOrders);
-    }, 2000);
+    }, 1000);
   }, []);
+
+  const handleRowClick = (orderId: string) => {
+    navigate(`/order/${orderId}`);
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6">
@@ -84,6 +90,7 @@ const MyOrdersPage = () => {
                 <tr
                   key={order._id}
                   className="border-b border-gray-300 hover:border-gray-500 transition cursor-pointer last:border-b-0"
+                  onClick={() => handleRowClick(order._id)}
                 >
                   <td className="pyf-2 px-2 sm:py-4 sm:px-4">
                     <img
