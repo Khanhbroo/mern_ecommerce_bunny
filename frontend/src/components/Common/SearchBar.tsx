@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useEscapeKey } from "../../hooks";
+import { useClickOutside, useEscapeKey } from "../../hooks";
 
 import { Search, X } from "lucide-react";
 
@@ -7,6 +7,7 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const searchBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (inputRef.current && isOpen) {
@@ -16,6 +17,9 @@ const SearchBar = () => {
 
   // When using escape this hook helps close the search bar
   useEscapeKey({ escapeCondition: isOpen, setEscapeCondition: setIsOpen });
+
+  // When clicking outside of the searchbar, it will be hidden
+  useClickOutside(searchBarRef, () => setIsOpen(false));
 
   const handleSearchToggle = () => {
     setIsOpen((prev) => !prev);
@@ -28,7 +32,7 @@ const SearchBar = () => {
   };
 
   return (
-    <>
+    <div ref={searchBarRef}>
       <button onClick={handleSearchToggle} className="outline-none">
         <Search size={24} />
       </button>
@@ -74,7 +78,7 @@ const SearchBar = () => {
           </form>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

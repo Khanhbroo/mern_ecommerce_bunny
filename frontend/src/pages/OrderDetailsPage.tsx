@@ -98,46 +98,53 @@ const OrderDetailsPage = () => {
           </div>
 
           {/* Production list */}
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto custom-scrollbar">
             <h4 className="text-lg font-semibold mb-4">Products</h4>
-            <table className="max-sm:w-[150%] sm:min-w-full text-gray-600 mb-4">
-              <thead className="bg-gray-100 text-left">
-                <tr>
-                  <th className="py-2 px-4">Name</th>
-                  <th className="py-2 px-4">Unit Price</th>
-                  <th className="py-2 px-4">Quantity</th>
-                  <th className="py-2 px-4">Total</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {orderDetails.orderItems.map((item) => (
-                  <tr key={item.productId} className="border-b border-gray-300">
-                    <td className="py-2 px-4 flex items-center">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-12 h-12 object-cover rounded-lg mr-4"
-                      />
-                      <Link
-                        to={`/product/${item.productId}`}
-                        className="text-blue-500 hover:underline"
-                      >
-                        {item.name}
-                      </Link>
-                    </td>
-
-                    <td className="py-2 px-4">${item.price}</td>
-                    <td className="py-2 px-4">${item.quantity}</td>
-                    <td className="py-2 px-4">${item.price * item.quantity}</td>
+            <div>
+              <table className="max-sm:w-[150%] sm:min-w-full text-gray-600 sm:rounded-lg overflow-hidden">
+                <thead className="bg-gray-100 text-left">
+                  <tr>
+                    <th className="py-2 px-4">Name</th>
+                    <th className="py-2 px-4">Unit Price</th>
+                    <th className="py-2 px-4">Quantity</th>
+                    <th className="py-2 px-4">Total</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+
+                <tbody>
+                  {orderDetails.orderItems.map((item) => (
+                    <tr
+                      key={item.productId}
+                      className="border-b border-gray-300 hover:bg-gray-100 last:border-b-0 transition cursor-pointer"
+                    >
+                      <td className="py-2 px-4 flex items-center">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-12 h-12 object-cover rounded-lg mr-4"
+                        />
+                        <Link
+                          to={`/product/${item.productId}`}
+                          className="text-blue-500 hover:underline"
+                        >
+                          {item.name}
+                        </Link>
+                      </td>
+
+                      <td className="py-2 px-4">${item.price}</td>
+                      <td className="py-2 px-4">${item.quantity}</td>
+                      <td className="py-2 px-4">
+                        ${item.price * item.quantity}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {/* Back to Orders Link */}
-          <div className="flex justify-end">
+          <div className="flex justify-end mt-4">
             <Link
               to="/my-orders"
               className="text-black bg-gray-100 px-4 py-3 rounded-lg transition hover:bg-gray-200"

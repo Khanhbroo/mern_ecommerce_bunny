@@ -5,7 +5,7 @@ import type { PaypalUserDetails } from "../../type/checkout";
 import { Loader2 } from "lucide-react";
 
 const options = {
-  clientId: import.meta.env.VITE_CLIENT_ID,
+  clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
   currency: "USD",
   locale: "en_VN",
 };

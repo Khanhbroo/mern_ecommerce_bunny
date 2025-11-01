@@ -89,7 +89,7 @@ const MyOrdersPage = () => {
               orders.map((order) => (
                 <tr
                   key={order._id}
-                  className="border-b border-gray-300 hover:border-gray-500 transition cursor-pointer last:border-b-0"
+                  className="border-b border-gray-300 hover:bg-gray-100 transition cursor-pointer last:border-b-0"
                   onClick={() => handleRowClick(order._id)}
                 >
                   <td className="pyf-2 px-2 sm:py-4 sm:px-4">

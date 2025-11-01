@@ -4,6 +4,31 @@
 
 @theme {
   --color-bunny-red: #ea2e0e;
+
+  --animate-appear: appear 0.2s linear forwards;
+  --animate-disappear: disappear 0.2s linear forwards;
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    to {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  @keyframes disappear {
+    from {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    to {
+      opacity: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 
 @layer utilities {

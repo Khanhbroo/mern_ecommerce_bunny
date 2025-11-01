@@ -14,6 +14,7 @@ import {
 import { Toaster } from "sonner";
 import { ProductDetails } from "./components/Products";
 import { Checkout } from "./components/Cart";
+import { AdminHomePage, UserManagement } from "./components/Admin";
 
 function App() {
   return (
@@ -40,7 +41,10 @@ function App() {
             <Route path="my-orders" element={<MyOrdersPage />} />
           </Route>
 
-          <Route path="/admin" element={<AdminLayout />}></Route>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminHomePage />} />
+            <Route path="users" element={<UserManagement />} />
+          </Route>
 
           <Route
             path="*"
