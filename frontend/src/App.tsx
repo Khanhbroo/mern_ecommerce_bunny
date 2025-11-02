@@ -17,6 +17,7 @@ import { Checkout } from "./components/Cart";
 import {
   AdminHomePage,
   EditProductPage,
+  OrderManagement,
   ProductManagement,
   UserManagement,
 } from "./components/Admin";
@@ -51,6 +52,7 @@ function App() {
             <Route path="users" element={<UserManagement />} />
             <Route path="products" element={<ProductManagement />} />
             <Route path="products/:id/edit" element={<EditProductPage />} />
+            <Route path="orders" element={<OrderManagement />} />
           </Route>
 
           <Route

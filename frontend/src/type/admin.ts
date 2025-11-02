@@ -22,3 +22,12 @@ export type EditProduct = {
     url: string;
   }[];
 };
+
+export type Order = {
+  _id: number;
+  user: {
+    name: string;
+  };
+  totalPrice: number;
+  status: string;
+}[];
