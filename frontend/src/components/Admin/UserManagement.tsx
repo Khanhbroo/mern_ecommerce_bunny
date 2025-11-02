@@ -22,10 +22,10 @@ const UserManagement = () => {
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       [event.target.name]: event.target.value,
-    });
+    }));
   };
 
   const handleSubmit = (event: React.FormEvent) => {

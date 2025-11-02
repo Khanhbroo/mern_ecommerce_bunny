@@ -16,6 +16,7 @@ import { ProductDetails } from "./components/Products";
 import { Checkout } from "./components/Cart";
 import {
   AdminHomePage,
+  EditProductPage,
   ProductManagement,
   UserManagement,
 } from "./components/Admin";
@@ -49,6 +50,7 @@ function App() {
             <Route index element={<AdminHomePage />} />
             <Route path="users" element={<UserManagement />} />
             <Route path="products" element={<ProductManagement />} />
+            <Route path="products/:id/edit" element={<EditProductPage />} />
           </Route>
 
           <Route
