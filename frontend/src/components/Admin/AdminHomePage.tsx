@@ -49,7 +49,7 @@ const AdminHomePage = () => {
 
       <div className="mt-6">
         <h2 className="text-2xl font-bold mb-4">Recent Orders</h2>
-        <div className="overflow-x-scroll shadow-md sm:rounded-lg">
+        <div className="overflow-x-auto shadow-md sm:rounded-lg">
           <table className="min-w-full text-left text-gray-500">
             <thead className="bg-gray-100 text-xs uppercase text-gray-700">
               <tr>
