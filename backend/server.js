@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { rateLimiterMiddleware } from "./rateLimit/connect.js";
 import connecDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -19,13 +20,11 @@ app.use(rateLimiterMiddleware);
 // Connect to MongoDB
 await connecDB();
 
-// User routes
+// API routes
+// @desc Routes for users
 app.use("/api/users", userRoutes);
-
-app.get("/", (req, res) => {
-  console.log("Request received");
-  res.send("Welcome to the Ecommerce Bunny API");
-});
+// @desc Routes for products
+app.use("/api/products", productRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
