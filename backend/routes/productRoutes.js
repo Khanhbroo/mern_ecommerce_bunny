@@ -136,4 +136,25 @@ router.put("/:id", verifyUser, checkIsAdmin, async (req, res) => {
   }
 });
 
+// @route DELETE /api/products/:id
+// @desc Delete a product by ID
+// @access Private/Admin
+router.delete("/:id", verifyUser, checkIsAdmin, async (req, res) => {
+  try {
+    // Find the product by ID
+    const product = await Product.findById(req.params.id);
+
+    if (product) {
+      // Remove the product from DB
+      await product.deleteOne();
+      res.json({ message: "Product removed" });
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server Error");
+  }
+});
+
 export default router;
