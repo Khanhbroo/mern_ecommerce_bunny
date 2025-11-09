@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from "react-router";
 
 import { RadioRow, CheckboxRow } from "../Common";
 import { type FiltersSidebar } from "../../type/filtersSidebar";
-import type { InputType } from "zlib";
 
 const FilterSidebar = () => {
   const navigate = useNavigate();
@@ -114,7 +113,7 @@ const FilterSidebar = () => {
     navigate(`?${params.toString()}`);
   };
 
-  const handlePriceChange = (event: InputType) => {
+  const handlePriceChange = (event: any) => {
     const newPrice = event.target.value;
     setPriceRange([0, newPrice]);
     const newFilters = { ...filters, minPrice: 0, maxPrice: newPrice };
