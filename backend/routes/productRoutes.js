@@ -273,8 +273,11 @@ router.get("/best-seller", async (req, res) => {
 // @desc Retrieve latest 8 products - Creation date
 // @access Public
 router.get("/new-arrivals", async (req, res) => {
+  const { limit = 8 } = req.query;
   try {
-    const newArrivals = await Product.find().sort({ createdAt: -1 }).limit(8);
+    const newArrivals = await Product.find()
+      .sort({ createdAt: -1 })
+      .limit(limit);
 
     if (!newArrivals)
       return res
@@ -309,6 +312,7 @@ router.get("/:id", async (req, res) => {
 // @desc Retrieve similar products based on the current product's gender and category
 // @access Public
 router.get("/similar/:id", async (req, res) => {
+  const { limit = 4 } = req.query;
   const id = req.params.id;
   try {
     const product = await Product.findById(id);
@@ -320,7 +324,7 @@ router.get("/similar/:id", async (req, res) => {
       _id: { $ne: id }, // Exclude the current product ID
       gender: product.gender,
       category: product.category,
-    }).limit(4);
+    }).limit(limit);
 
     res.json(similarProducts);
   } catch (error) {
