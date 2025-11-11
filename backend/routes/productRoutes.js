@@ -269,6 +269,25 @@ router.get("/best-seller", async (req, res) => {
   }
 });
 
+// @route GET /api/products/new-arrivals
+// @desc Retrieve latest 8 products - Creation date
+// @access Public
+router.get("/new-arrivals", async (req, res) => {
+  try {
+    const newArrivals = await Product.find().sort({ createdAt: -1 }).limit(8);
+
+    if (!newArrivals)
+      return res
+        .status(404)
+        .json({ message: "No new arrival products have been found." });
+
+    res.status(200).json(newArrivals);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // @route GET /api/products/:id
 // @desc Get a single product by ID
 // @access Public
