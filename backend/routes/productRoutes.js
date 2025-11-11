@@ -250,6 +250,25 @@ router.get("/", async (req, res) => {
   }
 });
 
+// @router GET /api/products/best-seller
+// @desc Retrieve the product with the highest rating
+// @access Public
+router.get("/best-seller", async (req, res) => {
+  try {
+    const bestSeller = await Product.findOne().sort({ rating: -1 });
+
+    if (!bestSeller)
+      return res
+        .status(404)
+        .json({ message: "No best seller has been found. " });
+
+    res.status(200).json(bestSeller);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // @route GET /api/products/:id
 // @desc Get a single product by ID
 // @access Public
@@ -281,7 +300,7 @@ router.get("/similar/:id", async (req, res) => {
     const similarProducts = await Product.find({
       _id: { $ne: id }, // Exclude the current product ID
       gender: product.gender,
-      categody: product.category,
+      category: product.category,
     }).limit(4);
 
     res.json(similarProducts);
