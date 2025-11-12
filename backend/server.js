@@ -5,6 +5,7 @@ import { rateLimiterMiddleware } from "./rateLimit/connect.js";
 import connecDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -25,6 +26,8 @@ await connecDB();
 app.use("/api/users", userRoutes);
 // @desc Routes for products
 app.use("/api/products", productRoutes);
+// @desc Routers for carts
+app.use("/api/cart", cartRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

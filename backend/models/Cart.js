@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import User from "./User.js";
-import Product from "./Product.js";
 
 const cartItemSchema = new mongoose.Schema(
   {
@@ -31,6 +29,7 @@ const cartSchema = new mongoose.Schema(
     guestId: {
       type: String,
     },
+    products: [cartItemSchema],
     totalPrice: {
       type: Number,
       required: true,

@@ -3,7 +3,6 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
 import { verifyUser } from "../middleware/authMiddleware.js";
-import bcrypt from "bcryptjs";
 
 const router = express.Router();
 
