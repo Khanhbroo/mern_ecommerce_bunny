@@ -37,14 +37,14 @@ router.post("/", async (req, res) => {
 
       if (productIndex > -1) {
         // If the product already exists, update the quantity
-        cart.products[productIndex].quantity += quantity;
+        cart.products[productIndex].quantity += Number(quantity);
       } else {
         // Add new product
         cart.products.push({
           productId,
           name: product.name,
-          image: product.images[0],
-          price: product.price,
+          image: product.images[0].url,
+          price: Number(product.price),
           size,
           color,
           quantity,
@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
 
       //  Recalculate the total price
       cart.totalPrice = cart.products.reduce(
-        (acc, item) => acc + item.price * item.quantity,
+        (acc, item) => acc + Number(item.price) * Number(item.quantity),
         0
       );
       await cart.save();
@@ -68,12 +68,13 @@ router.post("/", async (req, res) => {
             productId,
             name: product.name,
             image: product.images[0].url,
+            price: Number(product.price),
             size,
             color,
             quantity,
           },
         ],
-        totalPrice: product.price * quantity,
+        totalPrice: Number(product.price) * Number(quantity),
       });
       return res.status(201).json(newCart);
     }
