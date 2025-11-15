@@ -1,10 +1,9 @@
 import express from "express";
-import Checkout from "../models/Checkout";
-import Order from "../models/Order";
-import Cart from "../models/Cart";
-import Product from "../models/Product";
+import Checkout from "../models/Checkout.js";
+import Order from "../models/Order.js";
+import Cart from "../models/Cart.js";
 
-import { verifyUser } from "../middleware/authMiddleware";
+import { verifyUser } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -60,6 +59,51 @@ router.put("/:id/pay", verifyUser, async (req, res) => {
       res.status(200).json(checkout);
     } else {
       res.status(400).json({ message: "Invalid Payment Status" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// @route POST /api/checkout/:id/finalize
+// @desc Finalize checkout and convert to an order after payment confirmation
+// @access Private
+router.post("/:id/finalize", verifyUser, async (req, res) => {
+  try {
+    const checkout = await Checkout.findById(req.params.id);
+
+    if (!checkout)
+      return res.status(404).json({ message: "Checkout not found" });
+
+    if (checkout.isPaid && !checkout.isFinalized) {
+      // Create final order based on the checkout details
+      const finalOrder = await Order.create({
+        user: checkout.user,
+        orderItems: checkout.orderItems,
+        shippingAddress: checkout.shippingAddress,
+        paymentMethod: checkout.paymentMethod,
+        totalPrice: checkout.totalPrice,
+        isPaid: true,
+        paidAt: checkout.paidAt,
+        isDelivered: false,
+        paymentStatus: "paid",
+        paymentDetails: checkout.paymentDetails,
+      });
+
+      // Mark the checkout as finalized
+      checkout.isFinalized = true;
+      checkout.finalizedAt = Date.now();
+      await checkout.save();
+
+      // Delete the cart associated with the user
+      await Cart.findOneAndDelete({ user: checkout.user });
+
+      res.status(201).json(finalOrder);
+    } else if (checkout.isFinalized) {
+      res.status(400).json({ message: "Checkout is already finalized" });
+    } else {
+      res.status(400).json({ message: "Checkout is not paid" });
     }
   } catch (error) {
     console.log(error);
