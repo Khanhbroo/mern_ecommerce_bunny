@@ -10,6 +10,7 @@ import checkoutRoutes from "./routes/checkoutRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import subscriberRoutes from "./routes/subscriberRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -40,6 +41,9 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
 // @desc Routers for subscribing
 app.use("/api/subscribe", subscriberRoutes);
+
+// Admin routes
+app.use("/api/admin", adminRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
