@@ -7,6 +7,7 @@ import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import checkoutRoutes from "./routes/checkoutRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -31,6 +32,8 @@ app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 // @desc Routers for checkouts
 app.use("/api/checkout", checkoutRoutes);
+// @desc Routers for orders
+app.use("/api/orders", orderRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
