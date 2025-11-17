@@ -38,7 +38,7 @@ router.post("/users", verifyUser, checkIsAdmin, async (req, res) => {
   }
 });
 
-// @router PUT /api/admin/users
+// @router PUT /api/admin/users/:id
 // @desc Update user's info
 // @access Private/Admin
 router.put("/users/:id", verifyUser, checkIsAdmin, async (req, res) => {
@@ -56,6 +56,23 @@ router.put("/users/:id", verifyUser, checkIsAdmin, async (req, res) => {
     const updatedUser = await user.save();
 
     res.status(200).json({ message: "User updated successfully", updatedUser });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// @route DELETE /api/users/:id
+// @desc Delete a user
+// @access Private/Admin
+router.delete("/users/:id", verifyUser, checkIsAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) return res.status(400).json({ message: "User not existed" });
+
+    await user.deleteOne();
+    res.status(200).json({ message: "User deleted successfully!" });
   } catch (error) {
     console.log(error);
     res.status(500).send("Internal Server Error");
