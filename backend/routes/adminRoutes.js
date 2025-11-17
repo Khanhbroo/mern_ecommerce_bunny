@@ -38,4 +38,28 @@ router.post("/users", verifyUser, checkIsAdmin, async (req, res) => {
   }
 });
 
+// @router PUT /api/admin/users
+// @desc Update user's info
+// @access Private/Admin
+router.put("/users/:id", verifyUser, checkIsAdmin, async (req, res) => {
+  const { name, email, role } = req.body;
+
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) return res.status(400).json({ message: "User not existed" });
+
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.role = role || user.role;
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({ message: "User updated successfully", updatedUser });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 export default router;
