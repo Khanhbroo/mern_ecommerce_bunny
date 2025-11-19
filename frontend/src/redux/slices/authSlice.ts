@@ -100,9 +100,9 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(registerUser.rejected, (state: any, action) => {
+      .addCase(registerUser.rejected, (state, action: any) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload.message;
       });
   },
 });
