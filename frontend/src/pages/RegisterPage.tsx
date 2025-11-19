@@ -1,16 +1,20 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router";
 
 import register from "/register.webp";
+import { registerUser } from "../redux/slices/authSlice";
 
 const RegisterPage = () => {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("User Register", { name, email, password });
+    dispatch(registerUser({ name, email, password }));
   };
 
   return (

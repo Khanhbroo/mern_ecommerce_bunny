@@ -1,5 +1,8 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router";
 
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
 import { UserLayout, AdminLayout } from "./components/Layout";
 import {
   CollectionPage,
@@ -24,7 +27,7 @@ import {
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <Toaster richColors position="top-center" />
       <BrowserRouter>
         <Routes>
@@ -73,7 +76,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </>
+    </Provider>
   );
 }
 

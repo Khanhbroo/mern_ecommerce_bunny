@@ -22,7 +22,7 @@ const initialState = {
 // Async Thunk for User Login
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async (userData, { rejectedWithValue }) => {
+  async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
@@ -33,8 +33,8 @@ export const loginUser = createAsyncThunk(
       localStorage.setItem("userToken", JSON.stringify(response.data.token));
 
       return response.data.user; // Return user object from the response
-    } catch (error) {
-      return rejectedWithValue(error.response.data);
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -42,7 +42,7 @@ export const loginUser = createAsyncThunk(
 // Async Thunk for User Registration
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
-  async (userData, { rejectedWithValue }) => {
+  async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/register`,
@@ -54,8 +54,8 @@ export const registerUser = createAsyncThunk(
       localStorage.setItem("userToken", JSON.stringify(response.data.token));
 
       return response.data.user;
-    } catch (error) {
-      return rejectedWithValue(error.response.data);
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -78,27 +78,29 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(loginUser.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    }),
-      builder.addCase(loginUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      }),
-      builder.addCase(loginUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload.message;
-      }),
-      builder.addCase(registerUser.pending, (state) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    builder
+      .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
-      }),
-      builder.addCase(registerUser.fulfilled, (state, action) => {
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      }),
-      builder.addCase(registerUser.rejected, (state, action) => {
+      })
+      .addCase(loginUser.rejected, (state, action: any) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(registerUser.rejected, (state: any, action) => {
         state.loading = false;
         state.error = action.payload;
       });
