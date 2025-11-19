@@ -10,7 +10,8 @@ import checkoutRoutes from "./routes/checkoutRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import subscriberRoutes from "./routes/subscriberRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
+import adminRoutes from "./routes/userAdminRoutes.js";
+import productAdminRoutes from "./routes/productAdminRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -43,7 +44,8 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/subscribe", subscriberRoutes);
 
 // Admin routes
-app.use("/api/admin", adminRoutes);
+app.use("/api/admin/users", adminRoutes);
+app.use("/api/admin/products", productAdminRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

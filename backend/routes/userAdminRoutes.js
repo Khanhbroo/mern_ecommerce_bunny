@@ -8,7 +8,7 @@ const router = express.Router();
 // @desc Get all users
 // @access Private/Admin
 
-router.get("/users", verifyUser, checkIsAdmin, async (req, res) => {
+router.get("/", verifyUser, checkIsAdmin, async (req, res) => {
   try {
     const users = await User.find({});
     res.status(200).json(users);
@@ -21,7 +21,7 @@ router.get("/users", verifyUser, checkIsAdmin, async (req, res) => {
 // @route POST /api/admin/users
 // @desc Add a new user
 // @access Private/Admin
-router.post("/users", verifyUser, checkIsAdmin, async (req, res) => {
+router.post("/", verifyUser, checkIsAdmin, async (req, res) => {
   const { name, email, password, role } = req.body;
 
   try {
@@ -41,7 +41,7 @@ router.post("/users", verifyUser, checkIsAdmin, async (req, res) => {
 // @router PUT /api/admin/users/:id
 // @desc Update user's info
 // @access Private/Admin
-router.put("/users/:id", verifyUser, checkIsAdmin, async (req, res) => {
+router.put("/:id", verifyUser, checkIsAdmin, async (req, res) => {
   const { name, email, role } = req.body;
 
   try {
@@ -65,7 +65,7 @@ router.put("/users/:id", verifyUser, checkIsAdmin, async (req, res) => {
 // @route DELETE /api/users/:id
 // @desc Delete a user
 // @access Private/Admin
-router.delete("/users/:id", verifyUser, checkIsAdmin, async (req, res) => {
+router.delete("/:id", verifyUser, checkIsAdmin, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
 
