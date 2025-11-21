@@ -166,7 +166,7 @@ const productsSlice = createSlice({
         state.loading = false;
         const updatedProduct = action.payload;
         const index = state.products.findIndex(
-          (product: any) => product._id === updateProduct._id
+          (product: any) => product._id === updatedProduct._id
         );
 
         if (index !== -1) {
