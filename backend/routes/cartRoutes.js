@@ -140,7 +140,7 @@ router.delete("/", async (req, res) => {
 
     const productIndex = cart.products.findIndex(
       (product) =>
-        product.productId.toString() &&
+        product.productId.toString() === productId &&
         product.size === size &&
         product.color === color
     );
