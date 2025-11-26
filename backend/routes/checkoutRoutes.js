@@ -33,7 +33,7 @@ router.post("/", verifyUser, async (req, res) => {
     res.status(201).json(newCheckout);
   } catch (error) {
     console.log("Error creating checkout session:", error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -62,7 +62,7 @@ router.put("/:id/pay", verifyUser, async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -107,7 +107,7 @@ router.post("/:id/finalize", verifyUser, async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

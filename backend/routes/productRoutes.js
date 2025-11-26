@@ -38,7 +38,7 @@ router.post("/", verifyUser, checkIsAdmin, async (req, res) => {
     });
 
     if (product) {
-      return res.status(409).send("Duplicate item!");
+      return res.status(409).json({ message: "Duplicate item!" });
     }
 
     product = new Product({
@@ -68,7 +68,7 @@ router.post("/", verifyUser, checkIsAdmin, async (req, res) => {
     res.status(201).json(createdProduct);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -132,7 +132,7 @@ router.put("/:id", verifyUser, checkIsAdmin, async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -246,7 +246,7 @@ router.get("/", async (req, res) => {
     return res.status(200).json(products);
   } catch (error) {
     console.log(error);
-    return res.status(500).send("Internal Server Error");
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -265,7 +265,7 @@ router.get("/best-seller", async (req, res) => {
     res.status(200).json(bestSeller);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -287,7 +287,7 @@ router.get("/new-arrivals", async (req, res) => {
     res.status(200).json(newArrivals);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -304,7 +304,7 @@ router.get("/:id", async (req, res) => {
     res.json(product);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -329,7 +329,7 @@ router.get("/similar/:id", async (req, res) => {
     res.json(similarProducts);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

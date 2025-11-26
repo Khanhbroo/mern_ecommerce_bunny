@@ -13,7 +13,7 @@ router.get("/", verifyUser, checkIsAdmin, async (req, res) => {
     res.status(200).json(orders);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -36,7 +36,7 @@ router.put("/:id", verifyUser, checkIsAdmin, async (req, res) => {
     return res.status(200).json(updatedOrder);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -53,7 +53,7 @@ router.delete("/:id", verifyUser, checkIsAdmin, async (req, res) => {
     res.status(200).json({ message: "Order removed" });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

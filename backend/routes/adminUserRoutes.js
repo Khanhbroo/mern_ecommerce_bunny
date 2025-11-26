@@ -14,7 +14,7 @@ router.get("/", verifyUser, checkIsAdmin, async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -58,7 +58,7 @@ router.put("/:id", verifyUser, checkIsAdmin, async (req, res) => {
     res.status(200).json({ message: "User updated successfully", updatedUser });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -75,7 +75,7 @@ router.delete("/:id", verifyUser, checkIsAdmin, async (req, res) => {
     res.status(200).json({ message: "User deleted successfully!" });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

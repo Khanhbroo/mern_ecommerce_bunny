@@ -82,7 +82,7 @@ router.post("/", async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -123,7 +123,7 @@ router.put("/", async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).send("Internal Server Error");
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -159,7 +159,7 @@ router.delete("/", async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -177,7 +177,7 @@ router.get("/", async (req, res) => {
     return res.status(200).json(cart);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -250,7 +250,7 @@ router.post("/merge", verifyUser, async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
