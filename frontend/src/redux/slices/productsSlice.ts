@@ -17,20 +17,21 @@ export const fetchProductsByFilters = createAsyncThunk(
     material,
     brand,
     limit,
-  }: Record<string, string>) => {
+  }: Record<string, string | number>) => {
     const query = new URLSearchParams();
-    if (collection) query.append("collection", collection);
-    if (size) query.append("size", size);
-    if (color) query.append("color", color);
-    if (gender) query.append("gender", gender);
-    if (minPrice) query.append("minPrice", minPrice);
-    if (maxPrice) query.append("maxPrice", maxPrice);
-    if (sortBy) query.append("sortBy", sortBy);
-    if (search) query.append("search", search);
-    if (category) query.append("category", category);
-    if (material) query.append("material", material);
-    if (brand) query.append("brand", brand);
-    if (limit) query.append("limit", limit);
+
+    if (collection) query.append("collection", String(collection));
+    if (size) query.append("size", String(size));
+    if (color) query.append("color", String(color));
+    if (gender) query.append("gender", String(gender));
+    if (minPrice) query.append("minPrice", String(minPrice));
+    if (maxPrice) query.append("maxPrice", String(maxPrice));
+    if (sortBy) query.append("sortBy", String(sortBy));
+    if (search) query.append("search", String(search));
+    if (category) query.append("category", String(category));
+    if (material) query.append("material", String(material));
+    if (brand) query.append("brand", String(brand));
+    if (limit) query.append("limit", String(limit));
 
     const response = await axios.get(
       `${import.meta.env.VITE_BACKEND_URL}/api/products?${query.toString()}`

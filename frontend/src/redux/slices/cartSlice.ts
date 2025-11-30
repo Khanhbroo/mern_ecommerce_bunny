@@ -36,7 +36,14 @@ export const fetchCart = createAsyncThunk(
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async (
-    { productId, quantity, size, color, guestId, userId },
+    {
+      productId,
+      quantity,
+      size,
+      color,
+      guestId,
+      userId,
+    }: Record<string, string>,
     { rejectWithValue }
   ) => {
     try {

@@ -1,4 +1,4 @@
-export type MockProducts = {
+export type Products = {
   _id: number;
   name: string;
   price: number;

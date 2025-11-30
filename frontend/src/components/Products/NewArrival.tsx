@@ -1,7 +1,10 @@
 import { Link } from "react-router";
 import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}`;
 
 const NewArrival = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -11,96 +14,24 @@ const NewArrival = () => {
   const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
   const [canScrollRight, setCanScrollRight] = useState<boolean>(true);
 
-  const newArrivals = [
-    {
-      _id: "1",
-      name: "Stylish Jacket",
-      price: 120,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=1",
-          altText: "Stylish Jacket",
-        },
-      ],
-    },
-    {
-      _id: "2",
-      name: "Classic White Shirt",
-      price: 75,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=2",
-          altText: "Classic White Shirt",
-        },
-      ],
-    },
-    {
-      _id: "3",
-      name: "Denim Jeans",
-      price: 90,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=3",
-          altText: "Denim Jeans",
-        },
-      ],
-    },
-    {
-      _id: "4",
-      name: "Casual Sneakers",
-      price: 110,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=4",
-          altText: "Casual Sneakers",
-        },
-      ],
-    },
-    {
-      _id: "5",
-      name: "Cotton Hoodie",
-      price: 95,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=5",
-          altText: "Cotton Hoodie",
-        },
-      ],
-    },
-    {
-      _id: "6",
-      name: "Leather Belt",
-      price: 45,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=6",
-          altText: "Leather Belt",
-        },
-      ],
-    },
-    {
-      _id: "7",
-      name: "Slim Fit Trousers",
-      price: 100,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=7",
-          altText: "Slim Fit Trousers",
-        },
-      ],
-    },
-    {
-      _id: "8",
-      name: "Woolen Scarf",
-      price: 60,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=8",
-          altText: "Woolen Scarf",
-        },
-      ],
-    },
-  ];
+  const [newArrivals, setNewArrivals] = useState([]);
+
+  // Fetching new arrival items from database
+  useEffect(() => {
+    const fetchNewArrivals = async () => {
+      try {
+        const response = await axios.get(
+          `${API_URL}/api/products/new-arrivals`
+        );
+        console.log(response.data);
+        setNewArrivals(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchNewArrivals();
+  }, []);
 
   // Update scroll for checking button if can scroll left or right
   useEffect(() => {
@@ -112,7 +43,7 @@ const NewArrival = () => {
       return () =>
         container?.removeEventListener("scroll", updateScrollButtons);
     }
-  }, []);
+  }, [newArrivals]);
 
   // Take scroll amount when clicking the button
   const scroll = (direction: string) => {
