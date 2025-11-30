@@ -42,28 +42,28 @@ const Navbar = () => {
         {/* Center - Navigation Links */}
         <div className="hidden md:flex space-x-6">
           <Link
-            to="/collection/all"
+            to="/collection/all?gender=Male"
             className="text-gray-700 hover:text-black text-sm font-medium uppercase"
           >
             Men
           </Link>
 
           <Link
-            to="/"
+            to="/collection/all?gender=Female"
             className="text-gray-700 hover:text-black text-sm font-medium uppercase"
           >
             Women
           </Link>
 
           <Link
-            to="/"
+            to="/collection/all?category=Top+Wear"
             className="text-gray-700 hover:text-black text-sm font-medium uppercase"
           >
             Top wear
           </Link>
 
           <Link
-            to="/"
+            to="/collection/all?category=Bottom+Wear"
             className="text-gray-700 hover:text-black text-sm font-medium uppercase"
           >
             Bottom wear
