@@ -22,11 +22,7 @@ const ProductGrid = ({
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
       {products.map((product, index) => (
         <div className="flex flex-col py-4" key={index}>
-          <Link
-            to={`/product/${product._id}`}
-            className="block mb-4"
-            target="_blank"
-          >
+          <Link to={`/product/${product._id}`} className="block mb-4">
             <div className="bg-white rounded-lg">
               <div className="w-full h-80">
                 <img
