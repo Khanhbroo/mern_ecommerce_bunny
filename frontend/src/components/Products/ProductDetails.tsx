@@ -70,7 +70,7 @@ const ProductDetails = ({ productId }: { productId: string }) => {
 
     dispatch(
       addToCart({
-        productId: productFetchId,
+        productId: String(productFetchId),
         quantity: String(quantity),
         size: selectedSize,
         color: selectedColor,
