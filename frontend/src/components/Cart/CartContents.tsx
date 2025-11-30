@@ -1,53 +1,69 @@
+import { useDispatch } from "react-redux";
+
+import {
+  removeFromCart,
+  updateCartItemQuantity,
+} from "../../redux/slices/cartSlice";
+
 import { Trash2 } from "lucide-react";
 
-const CartContents = () => {
-  const cartProducts = [
-    {
-      productId: 1,
-      name: "T-shirt",
-      size: "M",
-      color: "Red",
-      quantity: 1,
-      price: 15,
-      image: "https://picsum.photos/200?random=1",
-    },
-    {
-      productId: 2,
-      name: "Polos",
-      size: "XL",
-      color: "Green",
-      quantity: 10,
-      price: 12,
-      image: "https://picsum.photos/200?random=2",
-    },
-    {
-      productId: 3,
-      name: "Sweater",
-      size: "L",
-      color: "Blue",
-      quantity: 3,
-      price: 18,
-      image: "https://picsum.photos/200?random=3",
-    },
-    {
-      productId: 4,
-      name: "Hoodie",
-      size: "XXL",
-      color: "Cyan",
-      quantity: 2,
-      price: 35,
-      image: "https://picsum.photos/200?random=4",
-    },
-    {
-      productId: 5,
-      name: "Cardigan",
-      size: "SM",
-      color: "Yellow",
-      quantity: 8,
-      price: 25,
-      image: "https://picsum.photos/200?random=5",
-    },
-  ];
+const CartContents = ({
+  cartProducts,
+  userId,
+  guestId,
+}: {
+  cartProducts: {
+    productId: string;
+    image: string;
+    name: string;
+    size: string;
+    color: string;
+    quantity: number;
+    price: number;
+  }[];
+  userId?: string;
+  guestId: string;
+}) => {
+  const dispatch = useDispatch();
+
+  // Handle adding or substracting cart
+  const handleAddToCart = ({
+    productId,
+    delta,
+    quantity,
+    size,
+    color,
+  }: {
+    productId: string;
+    delta: number;
+    quantity: number;
+    size: string;
+    color: string;
+  }) => {
+    const newQuantity = quantity + delta;
+    if (newQuantity >= 1) {
+      dispatch(
+        updateCartItemQuantity({
+          productId,
+          quantity: newQuantity,
+          size,
+          color,
+          guestId,
+          userId,
+        }) as any
+      );
+    }
+  };
+
+  const handleRemoveFromCart = ({
+    productId,
+    size,
+    color,
+  }: Record<string, string>) => {
+    dispatch(
+      removeFromCart({ productId, size, color, guestId, userId }) as any
+    );
+  };
 
   return (
     <div>
@@ -65,14 +81,36 @@ const CartContents = () => {
             <div>
               <h3>{product.name}</h3>
               <p className="text-sm text-gray-500">
-                size: {product.size} | color: {product.color}
+                Size: {product.size} | Color: {product.color}
               </p>
-              <div className="flex items-center mt-2">
+              <div
+                className="flex items-center mt-2"
+                onClick={() =>
+                  handleAddToCart({
+                    productId: product.productId,
+                    delta: -1,
+                    quantity: product.quantity,
+                    size: product.size,
+                    color: product.color,
+                  })
+                }
+              >
                 <button className="border border-gray-300 hover:border-gray-400 transition-colors rounded-sm px-2 py-1 text-xl font-medium">
                   -
                 </button>
                 <span className="mx-4">{product.quantity}</span>
-                <button className="border border-gray-300 hover:border-gray-400 transition-colors rounded-sm px-2 py-1 text-xl font-medium">
+                <button
+                  className="border border-gray-300 hover:border-gray-400 transition-colors rounded-sm px-2 py-1 text-xl font-medium"
+                  onClick={() =>
+                    handleAddToCart({
+                      productId: product.productId,
+                      delta: 1,
+                      quantity: product.quantity,
+                      size: product.size,
+                      color: product.color,
+                    })
+                  }
+                >
                   +
                 </button>
               </div>
@@ -80,7 +118,15 @@ const CartContents = () => {
           </div>
           <div>
             <p>$ {product.price.toLocaleString()}</p>
-            <button>
+            <button
+              onClick={() =>
+                handleRemoveFromCart({
+                  productId: product.productId,
+                  size: product.size,
+                  color: product.color,
+                })
+              }
+            >
               <Trash2 size={24} className="mt-2 text-red-600" />
             </button>
           </div>

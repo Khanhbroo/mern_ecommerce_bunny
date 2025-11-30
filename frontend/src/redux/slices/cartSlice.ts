@@ -64,7 +64,21 @@ export const addToCart = createAsyncThunk(
 export const updateCartItemQuantity = createAsyncThunk(
   "cart/updateCartItemQuantity",
   async (
-    { productId, quantity, size, color, guestId, userId },
+    {
+      productId,
+      quantity,
+      size,
+      color,
+      guestId,
+      userId,
+    }: {
+      productId: string;
+      quantity: number;
+      size: string;
+      color: string;
+      guestId: string;
+      userId?: string;
+    },
     { rejectWithValue }
   ) => {
     try {
@@ -83,7 +97,22 @@ export const updateCartItemQuantity = createAsyncThunk(
 // Remove an item from the cart
 export const removeFromCart = createAsyncThunk(
   "cart/removeFromCart",
-  async ({ productId, size, color, guestId, userId }, { rejectWithValue }) => {
+  async (
+    {
+      productId,
+      size,
+      color,
+      guestId,
+      userId,
+    }: {
+      productId: string;
+      size: string;
+      color: string;
+      guestId: string;
+      userId?: string;
+    },
+    { rejectWithValue }
+  ) => {
     try {
       const response = await axios({
         method: "DELETE",

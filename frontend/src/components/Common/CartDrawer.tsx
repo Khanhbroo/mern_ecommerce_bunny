@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import { useRef } from "react";
+import { useSelector } from "react-redux";
 import { useClickOutside } from "../../hooks";
 
 import { X } from "lucide-react";
@@ -15,13 +16,22 @@ const CartDrawer = ({
   toggleCartDrawer: () => void;
 }) => {
   const navigate = useNavigate();
+  const { user, guestId } = useSelector((state: any) => state.auth);
+  const { cart } = useSelector((state: any) => state.cart);
+  const userId = user ? user?._id : null;
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(sidebarRef, () => setDrawOpen(false));
 
   const handleCheckout = () => {
     setDrawOpen(false);
-    navigate("/checkout");
+
+    // Check if user is not logged in yet, then navigate them to login page
+    if (!user) {
+      navigate("/login?redirect=checkout");
+    } else {
+      navigate("/checkout");
+    }
   };
 
   return (
@@ -52,20 +62,32 @@ const CartDrawer = ({
         <div className="flex-grow-1 p-4 overflow-y-auto">
           <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
           {/* Component for Cart Contents */}
-          <CartContents />
+          {cart && cart?.products?.length > 0 ? (
+            <CartContents
+              cartProducts={cart.products}
+              userId={userId}
+              guestId={guestId}
+            />
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
         </div>
 
         {/* Checkout button fixed at the bottom */}
         <div className="p-4 bg-white sticky bottom-0">
-          <button
-            className="w-full bg-black text-white py-3 rounded-xl font-semibold tracking-wide hover:bg-gray-800 transition-colors duration-200"
-            onClick={handleCheckout}
-          >
-            Checkout
-          </button>
-          <p className="text-sm tracking-tighter text-gray-500 mt-2 text-center">
-            Shipping, taxes, and discount codes calculated at the checkout.
-          </p>
+          {cart && cart?.products?.length > 0 && (
+            <>
+              <button
+                className="w-full bg-black text-white py-3 rounded-xl font-semibold tracking-wide hover:bg-gray-800 transition-colors duration-200"
+                onClick={handleCheckout}
+              >
+                Checkout
+              </button>
+              <p className="text-sm tracking-tighter text-gray-500 mt-2 text-center">
+                Shipping, taxes, and discount codes calculated at the checkout.
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>

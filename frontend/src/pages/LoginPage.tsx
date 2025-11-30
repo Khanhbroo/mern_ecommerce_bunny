@@ -13,7 +13,7 @@ const LoginPage = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch(loginUser({ email, password }));
+    dispatch(loginUser({ email, password }) as any);
   };
 
   return (
