@@ -30,6 +30,19 @@ const CollectionPage = () => {
     );
   }, [dispatch, collections, searchParams]);
 
+  // Scroll to top from initial
+  useEffect(() => {
+    const handleScroll = () => {
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   useEscapeKey({
     escapeCondition: isSidebarOpen,
     setEscapeCondition: setIsSidebarOpen,
