@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import { RadioRow, CheckboxRow } from "../Common";
 import { type FiltersSidebar } from "../../type/filtersSidebar";
 
-const FilterSidebar = () => {
+const FilterSidebar = ({ toggleSideBar }: { toggleSideBar: () => void }) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFitlers] = useState<FiltersSidebar>({
@@ -96,7 +96,10 @@ const FilterSidebar = () => {
       newFilters[name] = value as string;
     }
     setFitlers(newFilters);
+    // Update the new URL when filtering
     updatedURLParams(newFilters);
+    // Toggle the sidebar when filtering an item
+    toggleSideBar();
   };
 
   const updatedURLParams = (newFilters: any) => {
