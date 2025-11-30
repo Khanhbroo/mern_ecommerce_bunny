@@ -51,7 +51,7 @@ const FilterSidebar = () => {
     "Midnight Bunny",
     "Carrot & Co",
   ];
-  const genders = ["Men", "Women"];
+  const genders = ["Male", "Female"];
 
   useEffect(() => {
     const params = Object.fromEntries([...searchParams]);
