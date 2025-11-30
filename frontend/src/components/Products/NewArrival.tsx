@@ -23,7 +23,6 @@ const NewArrival = () => {
         const response = await axios.get(
           `${API_URL}/api/products/new-arrivals`
         );
-        console.log(response.data);
         setNewArrivals(response.data);
       } catch (error) {
         console.error(error);

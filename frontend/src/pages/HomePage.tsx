@@ -28,7 +28,7 @@ const HomePage = () => {
     // Fetch products for a specific collection
     dispatch(
       fetchProductsByFilters({
-        gender: "Women",
+        gender: "Female",
         category: "Bottom Wear",
         limit: 8,
       }) as any

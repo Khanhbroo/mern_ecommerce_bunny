@@ -1,16 +1,11 @@
-// import mongoose from "mongoose";
-// import dotenv from "dotenv";
-// import Product from "./models/Product.js";
-// import User from "./models/User.js";
-// import { products } from "./data/products.js";
-
 import mongoose from "mongoose";
-import Product from "./models/Product";
-import User from "./models/User";
-import { products } from "./data/products";
-import Cart from "./models/Cart";
+import dotenv from "dotenv";
+import Product from "./models/Product.js";
+import User from "./models/User.js";
+import { products } from "./data/products.js";
+import Cart from "./models/Cart.js";
 
-// dotenv.config();
+dotenv.config();
 
 // // Connect to mongoDB
 mongoose.connect(process.env.MONGODB_URI);

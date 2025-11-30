@@ -1,6 +1,6 @@
 import { Link } from "react-router";
-import menCollectionImage from "/men-collection.webp";
-import womenCollectionImage from "/women-collection.webp";
+import menCollectionImage from "/men-collection.jpg";
+import womenCollectionImage from "/women-collection.jpg";
 
 const GenderCollectionSection = () => {
   return (
@@ -31,7 +31,7 @@ const GenderCollectionSection = () => {
           <img
             src={menCollectionImage}
             alt="Men's collection"
-            className="w-full h-[400px] md:h-[500px] xl:h-[700px] object-cover hover:brightness-75 duration-300 transition-all"
+            className="w-full h-[400px] md:h-[500px] xl:h-[700px] object-cover object-top hover:brightness-75 duration-300 transition-all"
           />
           <div className="absolute bottom-8 left-8 bg-white/90 p-4 mb-3 rounded-lg">
             <h2 className="text-2xl font-bold text-gray-900 hover:text-gray-700 transition-colors">

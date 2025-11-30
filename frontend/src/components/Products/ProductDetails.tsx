@@ -10,13 +10,13 @@ import {
 } from "../../redux/slices/productsSlice";
 import { addToCart } from "../../redux/slices/cartSlice";
 
-const ProductDetails = ({ productId }) => {
+const ProductDetails = ({ productId }: { productId: string }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { selectedProduct, loading, error, similarProducts } = useSelector(
-    (state) => state.products
+    (state: any) => state.products
   );
-  const { user, guestId } = useSelector((state) => state.auth);
+  const { user, guestId } = useSelector((state: any) => state.auth);
 
   const [mainImage, setMainImage] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string>("");
@@ -151,7 +151,7 @@ const ProductDetails = ({ productId }) => {
               <div className="mb-4">
                 <p className="text-gray-700">Colors:</p>
                 <div className="flex gap-2 mt-2">
-                  {selectedProduct.colors.map((color) => (
+                  {selectedProduct.colors.map((color: string) => (
                     <button
                       key={color}
                       className={`w-8 h-8 rounded-full border border-gray-500 transition-all ${
@@ -172,7 +172,7 @@ const ProductDetails = ({ productId }) => {
               <div className="mb-4">
                 <p className="text-gray-700">Sizes:</p>
                 <div className="flex gap-2 mt-2">
-                  {selectedProduct.sizes.map((size) => (
+                  {selectedProduct.sizes.map((size: string) => (
                     <button
                       key={size}
                       className={`px-4 py-2 rounded-lg border border-gray-200 hover:opacity-80 hover:text-shadow-black hover:text-shadow-2xs transition-all ${
@@ -241,7 +241,11 @@ const ProductDetails = ({ productId }) => {
             <h2 className="text-2xl text-center font-medium mb-4">
               You May Also Like
             </h2>
-            <ProductGrid products={similarProducts} />
+            <ProductGrid
+              products={similarProducts}
+              loading={loading}
+              error={error}
+            />
           </div>
         </div>
       )}

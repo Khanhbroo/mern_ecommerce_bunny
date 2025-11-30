@@ -3,7 +3,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bunny-red: #ea2e0e;
+  --color-bunny-red: #1581bf;
 
   --animate-appear: appear 0.2s linear forwards;
   --animate-disappear: disappear 0.2s linear forwards;
@@ -38,7 +38,7 @@
 
   .custom-scrollbar {
     scroll-behavior: smooth;
-    scrollbar-color: #771f10d1 transparent;
+    scrollbar-color: #1581bf transparent;
   }
 }
 
