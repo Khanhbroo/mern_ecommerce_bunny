@@ -37,7 +37,7 @@ const ProfilePage = () => {
               {user ? user?.email : "user@example.com"}
             </p>
             <button
-              className="w-full bg-bunny-red text-white py-2 px-4 rounded-sm hover:bg-bunny-red/90 transition-colors"
+              className="w-full bg-red-500 text-white py-2 px-4 rounded-sm hover:bg-red-600 transition-colors"
               onClick={handleLogout}
             >
               Logout
