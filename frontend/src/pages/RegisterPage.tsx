@@ -115,7 +115,10 @@ const RegisterPage = () => {
 
           <p className="mt-6 text-center text-sm">
             Already had an account?{" "}
-            <Link to="/login" className="text-blue-500">
+            <Link
+              to={`/login?redirect=${encodeURIComponent(redirect)}`}
+              className="text-blue-500"
+            >
               Login
             </Link>
           </p>
