@@ -74,6 +74,7 @@ const RegisterPage = () => {
             </label>
             <input
               type="password"
+              autoComplete="new-password"
               value={password}
               placeholder="Enter your password"
               className="w-full p-2 border border-gray-300 rounded-md outline-bunny-red/50"

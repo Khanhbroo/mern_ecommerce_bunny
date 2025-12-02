@@ -80,6 +80,7 @@ const LoginPage = () => {
             </label>
             <input
               type="password"
+              autoComplete="current-password"
               value={password}
               placeholder="Enter your password"
               className="w-full p-2 border border-gray-300 rounded-md outline-bunny-red/50"
