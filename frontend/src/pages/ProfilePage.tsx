@@ -45,7 +45,7 @@ const ProfilePage = () => {
           </div>
 
           {/* Right Section: Orders table */}
-          <div className="w-full md:h-2/3 lg:w-3/4">
+          <div className="w-full md:h-2/3 lg:w-3/4 overflow-x-auto">
             <MyOrdersPage />
           </div>
         </div>
