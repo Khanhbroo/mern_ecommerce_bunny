@@ -1,21 +1,44 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router";
 
 import register from "/register.webp";
 import { registerUser } from "../redux/slices/authSlice";
+import { mergeCart } from "../redux/slices/cartSlice";
 
 const RegisterPage = () => {
+  const { user, guestId } = useSelector((state: any) => state.auth);
+  const { cart } = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  // register?redirect=checkout
+  const redirect = new URLSearchParams(location.search).get("redirect") || "/";
+  const isCheckoutRedirect = redirect.includes("checkout");
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch(registerUser({ name, email, password }));
+    dispatch(registerUser({ name, email, password }) as any);
   };
+
+  // Check if user already existed, then navigate to checkout
+  useEffect(() => {
+    if (user) {
+      // If there's any product in cart, then merge it from guest to user cart
+      if (cart?.products.length > 0) {
+        dispatch(mergeCart({ guestId }) as any).then(() => {
+          navigate(isCheckoutRedirect ? "/checkout" : "/");
+        });
+      } else {
+        navigate(isCheckoutRedirect ? "checkout" : "/");
+      }
+    }
+  }, [dispatch, cart, user, guestId, navigate, isCheckoutRedirect]);
 
   return (
     <div className="flex">
