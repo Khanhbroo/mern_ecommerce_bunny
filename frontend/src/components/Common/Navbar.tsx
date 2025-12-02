@@ -84,9 +84,11 @@ const Navbar = () => {
           >
             Admin
           </Link>
+
           <Link to="/profile" className="hover:text-black">
             <UserRound size={24} className="text-gray-700" />
           </Link>
+
           <button
             className="relative hover:text-black outline-none"
             onClick={toggleCartDrawer}
@@ -100,7 +102,7 @@ const Navbar = () => {
           </button>
 
           {/* Search */}
-          <div className="overflow-hidden">
+          <div className="overflow-hidden h-6">
             <SearchBar />
           </div>
 

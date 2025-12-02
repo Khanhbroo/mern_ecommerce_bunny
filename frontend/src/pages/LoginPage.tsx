@@ -28,7 +28,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (user) {
       if (cart?.products.length > 0) {
-        dispatch(mergeCart({ guestId, userId }) as any).then(() => {
+        dispatch(mergeCart({ guestId, userid: user?._id }) as any).then(() => {
           navigate(isCheckoutRedirect ? "/checkout" : "/");
         });
       } else {
