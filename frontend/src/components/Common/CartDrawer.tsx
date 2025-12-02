@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router";
-import { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useClickOutside } from "../../hooks";
 
 import { X } from "lucide-react";
 import { CartContents } from "../Cart";
+import { fetchCart } from "../../redux/slices/cartSlice";
 
 const CartDrawer = ({
   drawOpen,
@@ -17,6 +18,7 @@ const CartDrawer = ({
 }) => {
   const navigate = useNavigate();
   const { user, guestId } = useSelector((state: any) => state.auth);
+  const dispatch = useDispatch();
   const { cart } = useSelector((state: any) => state.cart);
   const userId = user ? user?._id : null;
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -33,6 +35,11 @@ const CartDrawer = ({
       navigate("/checkout");
     }
   };
+
+  // Fetch cart if the cart state change
+  useEffect(() => {
+    dispatch(fetchCart({ userId: user?._id, guestId }) as any);
+  }, [cart, dispatch, user, guestId]);
 
   return (
     <div>
