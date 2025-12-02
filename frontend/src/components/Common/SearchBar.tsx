@@ -1,9 +1,14 @@
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import { useClickOutside, useEscapeKey } from "../../hooks";
 
 import { Search, X } from "lucide-react";
+import { setFilters } from "../../redux/slices/productsSlice";
 
 const SearchBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -27,7 +32,12 @@ const SearchBar = () => {
 
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
+    // Search the item then navigate to the collection page
+    dispatch(setFilters({ search: searchTerm }));
+    navigate(`/collection/all?search=${searchTerm}`);
+    // Close the search bar
     setIsOpen(false);
+    // Clear the search term in search bar
     setSearchTerm("");
   };
 

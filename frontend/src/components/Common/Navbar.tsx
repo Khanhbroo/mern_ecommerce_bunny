@@ -2,14 +2,20 @@ import { useRef, useState } from "react";
 import { useClickOutside } from "../../hooks";
 import { useEscapeKey } from "../../hooks";
 import { Link } from "react-router";
+import { useSelector } from "react-redux";
 
 import { SearchBar, CartDrawer } from "../Common";
 import { Handbag, Menu, UserRound, X } from "lucide-react";
 
 const Navbar = () => {
+  const { cart } = useSelector((state: any) => state.cart);
   const [drawOpen, setDrawOpen] = useState<boolean>(false);
   const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  const cartItemCount =
+    cart?.products?.reduce((total, product) => total + product.quantity, 0) ||
+    0;
 
   const toggleNavDrawer = () => {
     setNavDrawerOpen((prev) => !prev);
@@ -86,9 +92,11 @@ const Navbar = () => {
             onClick={toggleCartDrawer}
           >
             <Handbag size={24} className="text-gray-700" />
-            <span className="absolute bg-bunny-red text-white text-xs rounded-full px-2 py-0.5 -top-1  translate-x-[1px]">
-              4
-            </span>
+            {cartItemCount > 0 && (
+              <span className="absolute bg-bunny-red text-white text-xs rounded-full px-2 py-0.5 -top-1  translate-x-[1px]">
+                {cartItemCount}
+              </span>
+            )}
           </button>
 
           {/* Search */}

@@ -154,14 +154,13 @@ const ProductDetails = ({ productId }: { productId: string }) => {
                   {selectedProduct.colors.map((color: string) => (
                     <button
                       key={color}
-                      className={`w-8 h-8 rounded-full border border-gray-500 transition-all ${
+                      className={`w-8 h-8 rounded-full transition-all ${
                         selectedColor === color
-                          ? "border-3 border-white/80"
-                          : "border-gray-300"
+                          ? "border-3 border-bunny-red"
+                          : "border border-gray-700"
                       }`}
                       style={{
                         backgroundColor: color.toLocaleLowerCase(),
-                        filter: "brightness(0.5)",
                       }}
                       onClick={() => setSelectedColor(color)}
                     ></button>
