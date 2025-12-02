@@ -1,20 +1,41 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router";
 
 import login from "/login.webp";
 import { loginUser } from "../redux/slices/authSlice";
+import { mergeCart } from "../redux/slices/cartSlice";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { user, guestId } = useSelector((state: any) => state.auth);
+  const { cart } = useSelector((state: any) => state.cart);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  // Get redirect parameter and check if it's checkout or something
+  const redirect = new URLSearchParams(location.search).get("redirect") || "/";
+  const isCheckoutRedirect = redirect.includes("checkout");
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch(loginUser({ email, password }) as any);
   };
+
+  useEffect(() => {
+    if (user) {
+      if (cart?.products.length > 0) {
+        dispatch(mergeCart({ guestId, userId }) as any).then(() => {
+          navigate(isCheckoutRedirect ? "/checkout" : "/");
+        });
+      } else {
+        navigate(isCheckoutRedirect ? "/checkout" : "/");
+      }
+    }
+  }, [dispatch, user, guestId, cart, navigate, isCheckoutRedirect]);
 
   return (
     <div className="flex">
@@ -43,7 +64,7 @@ const LoginPage = () => {
             <input
               type="email"
               value={email}
-              placeholder="Enter your password"
+              placeholder="Enter your email"
               className="w-full p-2 border border-gray-300 rounded-md outline-bunny-red/50"
               id="email"
               onChange={(e) => setEmail(e.target.value)}
@@ -76,7 +97,10 @@ const LoginPage = () => {
 
           <p className="mt-6 text-center text-sm">
             Don't have an account yet?{" "}
-            <Link to="/register" className="text-blue-500">
+            <Link
+              to={`/register?redirect=${encodeURIComponent(redirect)}`}
+              className="text-blue-500"
+            >
               Register
             </Link>
           </p>
