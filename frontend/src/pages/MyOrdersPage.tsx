@@ -1,67 +1,18 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { fetchUserOrders } from "../redux/slices/ordersSlice";
 
-import type { MockOrders } from "../type/orders";
+// import type { Orders } from "../type/orders";
 
 const MyOrdersPage = () => {
-  const [orders, setOrders] = useState<MockOrders>();
+  const { orders } = useSelector((state: any) => state.orders);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Simulate fetching orders
-    setTimeout(() => {
-      const mockOrders = [
-        {
-          _id: "12345",
-          createdAt: new Date(),
-          shippingAddress: {
-            city: "Ha Noi",
-            country: "Viet Nam",
-          },
-          orderItems: [
-            {
-              name: "Product 1",
-              image: "https://picsum.photos/500/500?random=1",
-            },
-          ],
-          totalPrice: 100,
-          isPaid: true,
-        },
-        {
-          _id: "23456",
-          createdAt: new Date(),
-          shippingAddress: {
-            city: "New York",
-            country: "USA",
-          },
-          orderItems: [
-            {
-              name: "Product 2",
-              image: "https://picsum.photos/500/500?random=2",
-            },
-          ],
-          totalPrice: 150,
-          isPaid: false,
-        },
-        {
-          _id: "23456",
-          createdAt: new Date(),
-          shippingAddress: {
-            city: "Paris",
-            country: "France",
-          },
-          orderItems: [
-            {
-              name: "Product 3",
-              image: "https://picsum.photos/500/500?random=3",
-            },
-          ],
-          totalPrice: 350,
-          isPaid: true,
-        },
-      ];
-      setOrders(mockOrders);
-    }, 1000);
+    // Fetch orders
+    dispatch(fetchUserOrders() as any);
   }, []);
 
   const handleRowClick = (orderId: string) => {
