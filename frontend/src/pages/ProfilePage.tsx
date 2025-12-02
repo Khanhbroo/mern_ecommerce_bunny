@@ -33,7 +33,7 @@ const ProfilePage = () => {
             <h1 className="text-2xl md:text-3xl font-bold mb-4">
               {user ? user?.name : "Username"}
             </h1>
-            <p className="text-lg text-gray-600 mb-4">
+            <p className="text-lg text-gray-600 mb-4 truncate">
               {user ? user?.email : "user@example.com"}
             </p>
             <button
