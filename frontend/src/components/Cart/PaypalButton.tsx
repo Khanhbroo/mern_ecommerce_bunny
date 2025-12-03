@@ -15,7 +15,7 @@ const PaypalButton = ({
   onSuccess,
   onError,
 }: {
-  amount: number;
+  amount: string;
   onSuccess: (details: PaypalUserDetails) => void;
   onError: (err: Record<string, unknown>) => void;
 }) => {
@@ -35,11 +35,13 @@ const PaypalButton = ({
         onInit={() => setIsPending(false)}
         createOrder={(data, actions) => {
           return actions.order.create({
-            purchase_units: [{ amount: { value: amount.toString() } }],
+            purchase_units: [
+              { amount: { value: parseFloat(amount).toFixed(2).toString() } },
+            ],
           });
         }}
         onApprove={(data, actions) => {
-          return actions.order.capture().then(onSuccess);
+          return actions?.order?.capture().then(onSuccess);
         }}
         onError={onError}
       />
