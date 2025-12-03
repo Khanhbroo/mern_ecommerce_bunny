@@ -80,7 +80,7 @@ const AdminSidebar = ({ onLinkChange }: { onLinkChange: () => void }) => {
 
       <div className="mt-6">
         <button
-          className="w-full bg-bunny-red/80 hover:bg-bunny-red text-white py-2 px-4 rounded-sm flex items-center justify-center space-x-2 transition"
+          className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-sm flex items-center justify-center space-x-2 transition"
           onClick={handleLogout}
         >
           <LogOutIcon />
