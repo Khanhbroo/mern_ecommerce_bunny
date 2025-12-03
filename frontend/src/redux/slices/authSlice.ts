@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Retrieve user info and token from localStorage if available
 const userFromStorage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
+  ? JSON.parse(localStorage.getItem("userInfo") as string)
   : null;
 
 // Check for an existing guest ID in the localStorage or generate a new one

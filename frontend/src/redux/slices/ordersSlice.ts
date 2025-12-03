@@ -11,7 +11,7 @@ export const fetchUserOrders = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem("userToken")
+              localStorage.getItem("userToken") as string
             )}`,
           },
         }
@@ -33,7 +33,9 @@ export const fetchOrderDetails = createAsyncThunk(
         `${import.meta.env.VITE_BACKEND_URL}/api/orders/${orderId}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("userToken") as string
+            )}`,
           },
         }
       );
