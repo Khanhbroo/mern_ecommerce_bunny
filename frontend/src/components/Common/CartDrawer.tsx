@@ -39,7 +39,7 @@ const CartDrawer = ({
   // Fetch cart if the cart state change
   useEffect(() => {
     dispatch(fetchCart({ userId: user?._id, guestId }) as any);
-  }, [cart, dispatch, user, guestId]);
+  }, [dispatch, user, guestId]);
 
   return (
     <div>

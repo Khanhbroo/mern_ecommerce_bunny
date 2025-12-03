@@ -6,13 +6,14 @@ import { fetchUserOrders } from "../redux/slices/ordersSlice";
 // import type { Orders } from "../type/orders";
 
 const MyOrdersPage = () => {
-  const { orders } = useSelector((state: any) => state.orders);
+  // const { orders } = useSelector((state: any) => state.orders);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch orders
-    dispatch(fetchUserOrders() as any);
+    // dispatch(fetchUserOrders() as any);
+    console.log(orders);
   }, []);
 
   const handleRowClick = (orderId: string) => {
