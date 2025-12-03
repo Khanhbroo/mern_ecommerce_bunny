@@ -80,6 +80,7 @@ const RegisterPage = () => {
             </label>
             <input
               type="email"
+              autoComplete="username"
               value={email}
               placeholder="Enter your password"
               className="w-full p-2 border border-gray-300 rounded-md outline-bunny-red/50"
