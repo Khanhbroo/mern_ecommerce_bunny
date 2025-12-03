@@ -8,6 +8,7 @@ import { SearchBar, CartDrawer } from "../Common";
 import { Handbag, Menu, UserRound, X } from "lucide-react";
 
 const Navbar = () => {
+  const { user } = useSelector((state: any) => state.auth);
   const { cart } = useSelector((state: any) => state.cart);
   const [drawOpen, setDrawOpen] = useState<boolean>(false);
   const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
@@ -78,12 +79,14 @@ const Navbar = () => {
 
         {/* Right - Icon */}
         <div className="flex items-center space-x-4">
-          <Link
-            to="/admin"
-            className="block bg-black px-2 rounded-sm text-sm text-white"
-          >
-            Admin
-          </Link>
+          {user?.role === "admin" && (
+            <Link
+              to="/admin"
+              className="block bg-black px-2 rounded-sm text-sm text-white"
+            >
+              Admin
+            </Link>
+          )}
 
           <Link to="/profile" className="hover:text-black">
             <UserRound size={24} className="text-gray-700" />

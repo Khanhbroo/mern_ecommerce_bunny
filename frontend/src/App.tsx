@@ -24,6 +24,7 @@ import {
   ProductManagement,
   UserManagement,
 } from "./components/Admin";
+import ProtectedRoute from "./components/Common/ProtectedRoute";
 
 function App() {
   return (
@@ -50,7 +51,14 @@ function App() {
             <Route path="my-orders" element={<MyOrdersPage />} />
           </Route>
 
-          <Route path="/admin" element={<AdminLayout />}>
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<AdminHomePage />} />
             <Route path="users" element={<UserManagement />} />
             <Route path="products" element={<ProductManagement />} />
