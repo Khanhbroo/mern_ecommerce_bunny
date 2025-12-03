@@ -1,43 +1,28 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router";
 
-import type { MockOrdersDetail } from "../type/orders";
+import type { OrdersDetail } from "../type/orders";
+import { fetchOrderDetails } from "../redux/slices/ordersSlice";
 
 const OrderDetailsPage = () => {
   const { id } = useParams();
-  const [orderDetails, setOrderDetails] = useState<MockOrdersDetail | null>(
-    null
+  const dispatch = useDispatch();
+  const { orderDetails, loading, error } = useSelector(
+    (state: any) => state.orders
   );
 
   useEffect(() => {
-    const mockOrderDetails = {
-      _id: id,
-      createdAt: new Date(),
-      isPaid: true,
-      isDelivered: false,
-      paymentMethod: "Paypal",
-      shippingMethod: "Standard",
-      shippingAddress: { city: "Hai Phong", country: "VietNam" },
-      orderItems: [
-        {
-          productId: "1",
-          name: "Jacket",
-          price: 120,
-          quantity: 1,
-          image: "https://picsum.photos/150?random=1",
-        },
-        {
-          productId: "2",
-          name: "Shirt",
-          price: 150,
-          quantity: 2,
-          image: "https://picsum.photos/150?random=2",
-        },
-      ],
-    };
+    dispatch(fetchOrderDetails(id) as any);
+  }, [dispatch, id]);
 
-    setOrderDetails(mockOrderDetails);
-  }, [id]);
+  if (loading) {
+    return <p className="text-center">Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center">Error: {error}</p>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6">
@@ -132,7 +117,7 @@ const OrderDetailsPage = () => {
                       </td>
 
                       <td className="py-2 px-4">${item.price}</td>
-                      <td className="py-2 px-4">${item.quantity}</td>
+                      <td className="py-2 px-4">{item.quantity}</td>
                       <td className="py-2 px-4">
                         ${item.price * item.quantity}
                       </td>
@@ -147,7 +132,7 @@ const OrderDetailsPage = () => {
           <div className="flex justify-end mt-4">
             <Link
               to="/my-orders"
-              className="text-black bg-gray-100 px-4 py-3 rounded-lg transition hover:bg-gray-200"
+              className="text-black bg-gray-200 px-4 py-3 rounded-lg transition hover:bg-gray-300"
             >
               Back to My Orders
             </Link>

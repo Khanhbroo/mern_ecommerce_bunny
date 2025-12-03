@@ -6,7 +6,7 @@ import { fetchUserOrders } from "../redux/slices/ordersSlice";
 // import type { Orders } from "../type/orders";
 
 const MyOrdersPage = () => {
-  const { orders } = useSelector((state: any) => state.orders);
+  const { orders, loading, error } = useSelector((state: any) => state.orders);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,10 +19,18 @@ const MyOrdersPage = () => {
     navigate(`/order/${orderId}`);
   };
 
+  if (loading) {
+    return <p className="text-center">Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center">Error: {error}</p>;
+  }
+
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6">
       <h2 className="text-xl sm:text-2xl font-bold mb-6">My Orders</h2>
-      <div className="relative shadow-md sm:rounded-lg overflow-x-scroll lg:overflow-hidden custom-scrollbar">
+      <div className="relative shadow-md sm:rounded-lg overflow-x-auto custom-scrollbar">
         <table className="min-w-full text-left text-gray-500">
           <thead className="bg-gray-100 text-xs uppercase text-gray-700">
             <tr>
@@ -30,7 +38,7 @@ const MyOrdersPage = () => {
               <th className="py-2 px-4 sm:py-3">Order ID</th>
               <th className="py-2 px-4 sm:py-3">Created</th>
               <th className="py-2 px-4 sm:py-3">Shipping Address</th>
-              <th className="py-2 px-4 sm:py-3">Items</th>
+              <th className="py-2 px-4 sm:py-3">I tems</th>
               <th className="py-2 px-4 sm:py-3">Price</th>
               <th className="py-2 px-4 sm:py-3">Status</th>
             </tr>
