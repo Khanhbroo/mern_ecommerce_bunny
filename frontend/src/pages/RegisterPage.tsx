@@ -35,7 +35,7 @@ const RegisterPage = () => {
           navigate(isCheckoutRedirect ? "/checkout" : "/");
         });
       } else {
-        navigate(isCheckoutRedirect ? "checkout" : "/");
+        navigate(isCheckoutRedirect ? "/checkout" : "/");
       }
     }
   }, [dispatch, cart, user, guestId, navigate, isCheckoutRedirect]);
