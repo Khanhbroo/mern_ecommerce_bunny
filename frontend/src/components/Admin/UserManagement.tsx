@@ -1,17 +1,22 @@
-import { useState, type ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 import type { UserManagement } from "../../type/admin";
-
-const users = [
-  {
-    _id: 1,
-    name: "Khanhbroo",
-    email: "khanhdq1120@gmail.com",
-    role: "admin",
-  },
-];
+import {
+  addUser,
+  deleteUser,
+  fetchUsers,
+  updateUser,
+} from "../../redux/slices/adminSlice";
 
 const UserManagement = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state: any) => state.auth);
+  const { users, loading, error } = useSelector((state: any) => state.admin);
+
   const [formData, setFormData] = useState<UserManagement>({
     name: "",
     email: "",
@@ -30,25 +35,40 @@ const UserManagement = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(formData);
+    dispatch(addUser(formData) as any);
 
     // Reset the form after submission
     setFormData({ name: "", email: "", password: "", role: "customer" });
   };
 
   const handleRoleChange = (userId: number, newRole: string) => {
-    console.log({ id: userId, role: newRole });
+    dispatch(updateUser({ id: userId, role: newRole }) as any);
   };
 
   const handleDeleteUser = (userId: number) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      console.log("Deleted user with ID:", userId);
+      dispatch(deleteUser(userId) as any);
     }
   };
+
+  // Check if the role is not admin, then navigate to the homepage
+  useEffect(() => {
+    if (user && user.role !== "admin") {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  // Fetch all users for admin CMS
+  useEffect(() => {
+    dispatch(fetchUsers() as any);
+  }, [dispatch]);
 
   return (
     <div className="max-w-7xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">User Managament</h2>
+
+      {loading && <p className="text-center">Loading...</p>}
+      {error && <p className="text-center">Error: {error}</p>}
 
       {/* Add New User Form */}
       <div className="p-6 rounded-sm mb-6">
@@ -74,6 +94,7 @@ const UserManagement = () => {
             </label>
             <input
               type="email"
+              autoComplete="username"
               id="email"
               name="email"
               value={formData.email}
@@ -88,6 +109,7 @@ const UserManagement = () => {
             </label>
             <input
               type="password"
+              autoComplete="new-password"
               id="password"
               name="password"
               value={formData.password}
