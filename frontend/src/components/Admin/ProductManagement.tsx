@@ -1,22 +1,37 @@
-import { Link } from "react-router";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const mockProducts = [
-  {
-    _id: 123,
-    name: "Shirt",
-    price: 110,
-    sku: "SH-001",
-  },
-];
+import { Link } from "react-router";
+import {
+  deleteProduct,
+  fetchAdminProducts,
+} from "../../redux/slices/adminProductSlice";
 
 const ProductManagement = () => {
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector(
+    (state: any) => state.adminProducts
+  );
+
   const handleDelete = (productId: number) => {
     if (
       window.confirm(`Are you sure you want to delete product ${productId}?`)
     ) {
-      console.log("Deleted product with ID:", productId);
+      dispatch(deleteProduct(productId) as any);
     }
   };
+
+  useEffect(() => {
+    dispatch(fetchAdminProducts() as any);
+  }, [dispatch]);
+
+  if (loading) {
+    return <p className="text-center">Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center">Error: {error}</p>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -32,8 +47,8 @@ const ProductManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {mockProducts.length > 0 ? (
-              mockProducts.map((product) => (
+            {products.length > 0 ? (
+              products.map((product) => (
                 <tr
                   key={product._id}
                   className="border-b border-gray-300 hover:bg-gray-50 last:border-b-0 cursor-pointer transition"
@@ -51,7 +66,7 @@ const ProductManagement = () => {
                       Edit
                     </Link>
                     <button
-                      className="bg-bunny-red text-white px-2 py-1 rounded-sm transition hover:bg-red-700"
+                      className="bg-red-500 text-white px-2 py-1 rounded-sm transition hover:bg-red-600"
                       onClick={() => handleDelete(product._id)}
                     >
                       Delete

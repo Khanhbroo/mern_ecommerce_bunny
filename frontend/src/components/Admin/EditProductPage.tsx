@@ -1,6 +1,13 @@
-import { useState, type ChangeEvent } from "react";
-import type { EditProduct } from "../../type/admin";
+import { useEffect, useState, type ChangeEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
 
+import type { EditProduct } from "../../type/admin";
+import { fetchProductDetails } from "../../redux/slices/productsSlice";
+import axios from "axios";
+import { updateProduct } from "../../redux/slices/adminProductSlice";
+
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 const initialProductData: EditProduct = {
   name: "",
   description: "",
@@ -16,17 +23,25 @@ const initialProductData: EditProduct = {
   gender: "",
   images: [
     {
-      url: "https://picsum.photos/150?random=1",
+      url: "",
     },
     {
-      url: "https://picsum.photos/150?random=2",
+      url: "",
     },
   ],
 };
 
 const EditProductPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const { selectedProduct, loading, error } = useSelector(
+    (state: any) => state.products
+  );
+
   const [productData, setProductData] =
     useState<EditProduct>(initialProductData);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -54,15 +69,59 @@ const EditProductPage = () => {
     // setProductData(prevData => ({...prevData, [name]: value}))
   };
 
-  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    console.log("Uploaded file:", file);
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      setIsUploading(true);
+      const data = await axios.post(`${API_URL}/api/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setProductData((prevData) => ({
+        ...prevData,
+        images: [
+          ...prevData.images,
+          { url: data.imageUrl, altText: data.imageUrl },
+        ],
+      }));
+      setIsUploading(false);
+    } catch (error) {
+      console.error(error);
+      setIsUploading(false);
+    }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Updated Product Data:", productData);
+    dispatch(updateProduct({ id, productData }) as any);
+    navigate("/admin/products");
   };
+
+  // Dispatch action to set the selectedProduct state due to the params
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchProductDetails({ id }) as any);
+    }
+  }, [dispatch, id]);
+
+  // Fetch the product details data
+  useEffect(() => {
+    if (selectedProduct) {
+      setProductData(selectedProduct);
+    }
+  }, [selectedProduct]);
+
+  if (loading) {
+    return <p className="text-center">Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center">Error: {error}</p>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto p-6 shadow-md rounded-md">

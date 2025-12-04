@@ -24,15 +24,11 @@ export const fetchAdminProducts = createAsyncThunk(
 export const createProduct = createAsyncThunk(
   "adminProducts/createProduct",
   async (productData) => {
-    const response = await axios.post(
-      `${API_URL}/api/admin/products`,
-      productData,
-      {
-        headers: {
-          Authorization: USER_TOKEN,
-        },
-      }
-    );
+    const response = await axios.post(`${API_URL}/api/products`, productData, {
+      headers: {
+        Authorization: USER_TOKEN,
+      },
+    });
 
     return response.data;
   }
@@ -43,7 +39,7 @@ export const updateProduct = createAsyncThunk(
   "adminProducts/updateProduct",
   async ({ id, productData }) => {
     const response = await axios.put(
-      `${API_URL}/api/admin/products/${id}`,
+      `${API_URL}/api/products/${id}`,
       productData,
       {
         headers: {
@@ -60,7 +56,7 @@ export const updateProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
   "adminProducts/deleteProduct",
   async (id) => {
-    await axios.delete(`${API_URL}/api/admin/products/${id}`, {
+    await axios.delete(`${API_URL}/api/products/${id}`, {
       headers: {
         Authorization: USER_TOKEN,
       },
