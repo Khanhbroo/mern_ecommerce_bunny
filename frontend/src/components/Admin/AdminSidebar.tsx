@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+
 import {
   ClipboardCheckIcon,
   LogOutIcon,
@@ -6,11 +8,16 @@ import {
   User2Icon,
 } from "lucide-react";
 import { Link, NavLink, useNavigate } from "react-router";
+import { logout } from "../../redux/slices/authSlice";
+import { clearCart } from "../../redux/slices/cartSlice";
 
 const AdminSidebar = ({ onLinkChange }: { onLinkChange: () => void }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
+    dispatch(logout());
+    dispatch(clearCart());
     navigate("/");
   };
 
