@@ -1,20 +1,41 @@
-import type { Order } from "../../type/admin";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
-const mockOrders: Order = [
-  {
-    _id: 123123,
-    user: {
-      name: "Khanhbroo",
-    },
-    totalPrice: 250,
-    status: "Processing",
-  },
-];
+import type { Order } from "../../type/admin";
+import {
+  fetchAllOrders,
+  updateOrderStatus,
+} from "../../redux/slices/adminOrderSlice";
 
 const OrderManagement = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state: any) => state.auth);
+  const { orders, loading, error } = useSelector(
+    (state: any) => state.adminOrders as Order
+  );
+
   const handleStatusChange = (orderId: number, status: string) => {
-    console.log({ orderId, status });
+    dispatch(updateOrderStatus({ id: orderId, status } as any) as any);
   };
+
+  useEffect(() => {
+    if (!user || user.role !== "admin") {
+      navigate("/");
+    } else {
+      dispatch(fetchAllOrders() as any);
+    }
+  }, [user, dispatch, navigate]);
+
+  if (loading) {
+    return <p className="text-center">Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center">Error: {error}</p>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -31,8 +52,8 @@ const OrderManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {mockOrders.length > 0 ? (
-              mockOrders.map((order) => (
+            {orders.length > 0 ? (
+              orders.map((order) => (
                 <tr
                   key={order._id}
                   className="border-b border-gray-300 hover:bg-gray-50 last:border-b-0 cursor-pointer transition"
