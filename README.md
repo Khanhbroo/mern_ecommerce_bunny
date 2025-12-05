@@ -12,8 +12,9 @@ https://mern-ecommerce-bunny-frontend.onrender.com
 
 > ⚠️ **Note:** Render free-tier services may “cold start,” causing slow loading or temporary downtime on the first request.
 > If the page does not load immediately:
-> 1. Wait 30–60 seconds for the backend to wake up.
+> 1. Wait 30–60 seconds for the frontend to wake up.
 > 2. Refresh the page.
+> 3. If the network does not return anything, wait 30-60s for the backend to wake up.
 
 ---
 
