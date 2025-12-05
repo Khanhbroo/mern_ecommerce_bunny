@@ -13,7 +13,7 @@ const CollectionPage = () => {
   const collections = useParams();
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state.products);
+  const { products, loading, error } = useSelector((state: any) => state.products);
   const queryParams = Object.fromEntries([...searchParams]);
 
   const sidebarRef = useRef<HTMLDivElement>(null);

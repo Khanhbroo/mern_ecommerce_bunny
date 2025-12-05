@@ -33,14 +33,14 @@ const PaypalButton = ({
       <PayPalButtons
         style={{ layout: "vertical", color: "silver", shape: "rect" }}
         onInit={() => setIsPending(false)}
-        createOrder={(data, actions) => {
+        createOrder={(_data: any, actions: any) => {
           return actions.order.create({
             purchase_units: [
-              { amount: { value: parseFloat(amount).toFixed(2).toString() } },
+              { amount: { currency_code: "USD", value: parseFloat(amount).toFixed(2).toString() } },
             ],
           });
         }}
-        onApprove={(data, actions) => {
+        onApprove={(_data: any, actions: any) => {
           return actions?.order?.capture().then(onSuccess);
         }}
         onError={onError}

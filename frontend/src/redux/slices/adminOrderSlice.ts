@@ -20,7 +20,7 @@ export const fetchAllOrders = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue((error as any).response.data);
     }
   }
 );
@@ -28,7 +28,7 @@ export const fetchAllOrders = createAsyncThunk(
 // Update order delivery status
 export const updateOrderStatus = createAsyncThunk(
   "adminOrders/updateOrderStatus",
-  async ({ id, status }, { rejectWithValue }) => {
+  async ({ id, status }: { id: string; status: string }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/${id}`,
@@ -45,7 +45,7 @@ export const updateOrderStatus = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue((error as any).response.data);
     }
   }
 );
@@ -53,7 +53,7 @@ export const updateOrderStatus = createAsyncThunk(
 // Delete an order
 export const deleteOrder = createAsyncThunk(
   "adminOrders/deleteOrder",
-  async (id, { rejectWithValue }) => {
+  async (id: string, { rejectWithValue }) => {
     try {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/${id}`,
@@ -69,7 +69,7 @@ export const deleteOrder = createAsyncThunk(
       return id;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue((error as any).response.data);
     }
   }
 );
@@ -98,30 +98,30 @@ const adminOrderSlice = createSlice({
 
         // Calculate total sales
         const totalSales = action.payload.reduce(
-          (acc, order) => acc + order.totalPrice,
+          (acc: number, order: any) => acc + order.totalPrice,
           0
         );
         state.totalSales = totalSales;
       })
       .addCase(fetchAllOrders.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = (action.payload as any).message;
       })
       //   Update Order Status
       .addCase(updateOrderStatus.fulfilled, (state, action) => {
         const updatedOrder = action.payload;
         const orderIndex = state.orders.findIndex(
-          (order) => order._id === updatedOrder._id
+          (order: any) => order._id === updatedOrder._id
         );
 
         if (orderIndex !== -1) {
-          state.orders[orderIndex] = updatedOrder;
+          state.orders[orderIndex] = updatedOrder as never;
         }
       })
       //   Delete Order
       .addCase(deleteOrder.fulfilled, (state, action) => {
         state.orders = state.orders.filter(
-          (order) => order._id !== action.payload
+          (order: any) => order._id !== action.payload
         );
       });
   },

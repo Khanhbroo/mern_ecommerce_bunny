@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
-import type { Order } from "../../type/admin";
+
 import {
   fetchAllOrders,
   updateOrderStatus,
@@ -14,7 +14,7 @@ const OrderManagement = () => {
 
   const { user } = useSelector((state: any) => state.auth);
   const { orders, loading, error } = useSelector(
-    (state: any) => state.adminOrders as Order
+    (state: any) => state.adminOrders
   );
 
   const handleStatusChange = (orderId: number, status: string) => {
@@ -53,7 +53,7 @@ const OrderManagement = () => {
           </thead>
           <tbody>
             {orders.length > 0 ? (
-              orders.map((order) => (
+              orders.map((order: any) => (
                 <tr
                   key={order._id}
                   className="border-b border-gray-300 hover:bg-gray-50 last:border-b-0 cursor-pointer transition"

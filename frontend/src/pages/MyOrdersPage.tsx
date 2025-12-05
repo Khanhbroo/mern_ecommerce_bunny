@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { fetchUserOrders } from "../redux/slices/ordersSlice";
@@ -45,7 +45,7 @@ const MyOrdersPage = () => {
           </thead>
           <tbody>
             {orders && orders.length > 0 ? (
-              orders.map((order) => (
+              orders.map((order: any) => (
                 <tr
                   key={order._id}
                   className="border-b border-gray-300 hover:bg-gray-100 transition cursor-pointer last:border-b-0"

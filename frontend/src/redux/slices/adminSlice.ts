@@ -20,7 +20,7 @@ export const fetchUsers = createAsyncThunk("admin/fetchUsers", async () => {
 // Add the create user action
 export const addUser = createAsyncThunk(
   "admin/addUSer",
-  async (userData, { rejectWithValue }) => {
+  async (userData: any, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/users`,
@@ -36,7 +36,7 @@ export const addUser = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue((error as any).response.data);
     }
   }
 );
@@ -44,7 +44,7 @@ export const addUser = createAsyncThunk(
 // Update user info
 export const updateUser = createAsyncThunk(
   "admin/updateUser",
-  async ({ id, name, email, role }) => {
+  async ({ id, name, email, role }: { id: string | number; name?: string; email?: string; role?: string }) => {
     const response = await axios.put(
       `${import.meta.env.VITE_BACKEND_URL}/api/admin/users/${id}`,
       { name, email, role },
@@ -62,7 +62,7 @@ export const updateUser = createAsyncThunk(
 );
 
 // Delete an user
-export const deleteUser = createAsyncThunk("admin/deleteUser", async (id) => {
+export const deleteUser = createAsyncThunk("admin/deleteUser", async (id: string | number) => {
   await axios.delete(
     `${import.meta.env.VITE_BACKEND_URL}/api/admin/users/${id}`,
     {
@@ -82,7 +82,7 @@ const adminSlice = createSlice({
     users: [],
     loading: false,
     error: null,
-  },
+  } as { users: any[]; loading: boolean; error: string | null },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -104,7 +104,7 @@ const adminSlice = createSlice({
       })
       .addCase(addUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.users.push(action.payload.user); // add a new user to state
+        state.users.push((action.payload as any).user); // add a new user to state
       })
       .addCase(addUser.rejected, (state: any, action) => {
         state.loading = false;
@@ -114,7 +114,7 @@ const adminSlice = createSlice({
         const updatedUser = action.payload;
 
         const userIndex = state.users.findIndex(
-          (user) => user._id === updatedUser._id
+          (user: any) => user._id === updatedUser._id
         );
 
         if (userIndex !== -1) {
@@ -122,7 +122,7 @@ const adminSlice = createSlice({
         }
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        state.users = state.users.filter((user) => user._id !== action.payload);
+        state.users = state.users.filter((user: any) => user._id !== action.payload);
       });
   },
 });

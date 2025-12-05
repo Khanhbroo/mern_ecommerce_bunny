@@ -74,7 +74,9 @@ const EditProductPage = () => {
   const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     const formData = new FormData();
-    formData.append("image", file);
+    if (file) {
+      formData.append("image", file);
+    }
 
     try {
       setIsUploading(true);
@@ -99,7 +101,9 @@ const EditProductPage = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch(updateProduct({ id, productData }) as any);
+    if (id) {
+      dispatch(updateProduct({ id, productData }) as any);
+    }
     navigate("/admin/products");
   };
 

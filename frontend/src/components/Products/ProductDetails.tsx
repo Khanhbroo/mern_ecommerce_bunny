@@ -10,7 +10,7 @@ import {
 } from "../../redux/slices/productsSlice";
 import { addToCart } from "../../redux/slices/cartSlice";
 
-const ProductDetails = ({ productId }: { productId: string }) => {
+const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { selectedProduct, loading, error, similarProducts } = useSelector(
@@ -24,7 +24,7 @@ const ProductDetails = ({ productId }: { productId: string }) => {
   const [quantity, setQuantity] = useState<number>(1);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
-  const productFetchId = productId || id;
+  const productFetchId = id;
 
   // Fetch product details
   useEffect(() => {
@@ -103,7 +103,7 @@ const ProductDetails = ({ productId }: { productId: string }) => {
           <div className="flex flex-col-reverse mb-4 md:flex-row">
             {/* Left Thumbnails */}
             <div className="flex flex-row max-sm:overflow-x-scroll space-x-4 md:flex-col space-y-4 mr-6">
-              {selectedProduct.images.map((image, index) => (
+              {selectedProduct.images.map((image: any, index: number) => (
                 <img
                   key={index}
                   src={image.url}

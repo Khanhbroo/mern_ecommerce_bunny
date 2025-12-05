@@ -48,7 +48,7 @@ const ProductManagement = () => {
           </thead>
           <tbody>
             {products.length > 0 ? (
-              products.map((product) => (
+              products.map((product: any) => (
                 <tr
                   key={product._id}
                   className="border-b border-gray-300 hover:bg-gray-50 last:border-b-0 cursor-pointer transition"

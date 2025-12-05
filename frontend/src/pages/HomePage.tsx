@@ -56,7 +56,7 @@ const HomePage = () => {
       {/* Best seller */}
       <h2 className="text-3xl text-center font-bold mb-4">Best Seller</h2>
       {bestSellerProduct ? (
-        <ProductDetails productId={bestSellerProduct._id} />
+        <ProductDetails />
       ) : (
         <p className="text-center">Loading best seller products ...</p>
       )}

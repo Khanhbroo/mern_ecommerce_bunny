@@ -303,7 +303,7 @@ const Checkout = () => {
       <div className="bg-gray-50 p-6 rounded-lg">
         <h3 className="text-lg mb-4">Order Summary</h3>
         <div className="border-t border-gray-300 py-4 mb-4">
-          {cart.products.map((product, index) => (
+          {cart.products.map((product: any, index: number) => (
             <div
               key={index}
               className="flex items-start justify-between py-2 border-b border-gray-300"

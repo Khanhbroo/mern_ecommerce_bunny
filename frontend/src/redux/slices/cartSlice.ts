@@ -8,14 +8,14 @@ const loadCartFromStorage = () => {
 };
 
 // Helper function to save cart to localStorage
-const saveCartToStorage = (cart) => {
+const saveCartToStorage = (cart: any) => {
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
 // Fetch cart for a user or guest
 export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
-  async ({ userId, guestId }, { rejectWithValue }) => {
+  async ({ userId, guestId }: { userId?: string; guestId: string }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
@@ -27,7 +27,7 @@ export const fetchCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue((error as any).response.data);
     }
   }
 );
@@ -54,7 +54,7 @@ export const addToCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue((error as any).response.data);
     }
   }
 );
@@ -88,7 +88,7 @@ export const updateCartItemQuantity = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue((error as any).response.data);
     }
   }
 );
@@ -121,7 +121,7 @@ export const removeFromCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue((error as any).response.data);
     }
   }
 );
@@ -129,7 +129,7 @@ export const removeFromCart = createAsyncThunk(
 // Merge guest cart into user cart
 export const mergeCart = createAsyncThunk(
   "cart/mergeCart",
-  async ({ guestId }, { rejectWithValue }) => {
+  async ({ guestId }: { guestId: string }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/cart/merge`,
@@ -137,7 +137,7 @@ export const mergeCart = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem("userToken")
+              localStorage.getItem("userToken") as string
             )}`,
           },
         }
@@ -146,7 +146,7 @@ export const mergeCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue((error as any).response.data);
     }
   }
 );

@@ -37,7 +37,7 @@ export const createProduct = createAsyncThunk(
 // Async thunk to update an existing product
 export const updateProduct = createAsyncThunk(
   "adminProducts/updateProduct",
-  async ({ id, productData }) => {
+  async ({ id, productData }: { id: string; productData: any }) => {
     const response = await axios.put(
       `${API_URL}/api/products/${id}`,
       productData,
@@ -55,7 +55,7 @@ export const updateProduct = createAsyncThunk(
 // Async thunk to delete a product
 export const deleteProduct = createAsyncThunk(
   "adminProducts/deleteProduct",
-  async (id) => {
+  async (id: string | number) => {
     await axios.delete(`${API_URL}/api/products/${id}`, {
       headers: {
         Authorization: USER_TOKEN,
@@ -72,7 +72,7 @@ const adminProductSlice = createSlice({
     products: [],
     loading: false,
     error: null,
-  },
+  } as { products: any[]; loading: boolean; error: string | null },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -96,17 +96,17 @@ const adminProductSlice = createSlice({
       // Update Product
       .addCase(updateProduct.fulfilled, (state: any, action) => {
         const index = state.products.findIndex(
-          (product) => product._id === action.payload._id
+          (product: any) => product._id === action.payload._id
         );
 
-        if (index !== 1) {
+        if (index !== -1) {
           state.products[index] = action.payload;
         }
       })
       // Delete product
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.products = state.products.filter(
-          (product) => product._id !== action.payload
+          (product: any) => product._id !== action.payload
         );
       });
   },

@@ -2,7 +2,7 @@ import { useEffect, useState, type ChangeEvent } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
-import type { UserManagement } from "../../type/admin";
+import type { UserManagement as UserManagementType } from "../../type/admin";
 import {
   addUser,
   deleteUser,
@@ -17,7 +17,7 @@ const UserManagement = () => {
   const { user } = useSelector((state: any) => state.auth);
   const { users, loading, error } = useSelector((state: any) => state.admin);
 
-  const [formData, setFormData] = useState<UserManagement>({
+  const [formData, setFormData] = useState<UserManagementType>({
     name: "",
     email: "",
     password: "",
@@ -155,7 +155,7 @@ const UserManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users.map((user: any) => (
               <tr
                 key={user._id}
                 className="border-b border-gray-300 hover:bg-gray-50 last:border-b-0 transition"

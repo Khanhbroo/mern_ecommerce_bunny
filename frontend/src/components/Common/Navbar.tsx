@@ -15,7 +15,7 @@ const Navbar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   const cartItemCount =
-    cart?.products?.reduce((total, product) => total + product.quantity, 0) ||
+    cart?.products?.reduce((total: number, product: any) => total + product.quantity, 0) ||
     0;
 
   const toggleNavDrawer = () => {

@@ -21,7 +21,7 @@ export const createCheckout = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue((error as any).response.data);
     }
   }
 );
@@ -46,7 +46,7 @@ const checkoutSlice = createSlice({
       })
       .addCase(createCheckout.rejected, (state: any, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = (action.payload as any).message;
       });
   },
 });

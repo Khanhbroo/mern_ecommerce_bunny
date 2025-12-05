@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router";
 
-import type { OrdersDetail } from "../type/orders";
+
 import { fetchOrderDetails } from "../redux/slices/ordersSlice";
 
 const OrderDetailsPage = () => {
@@ -13,7 +13,9 @@ const OrderDetailsPage = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchOrderDetails(id) as any);
+    if (id) {
+      dispatch(fetchOrderDetails(id) as any);
+    }
   }, [dispatch, id]);
 
   if (loading) {
@@ -97,7 +99,7 @@ const OrderDetailsPage = () => {
                 </thead>
 
                 <tbody>
-                  {orderDetails.orderItems.map((item) => (
+                  {orderDetails.orderItems.map((item: any) => (
                     <tr
                       key={item.productId}
                       className="border-b border-gray-300 hover:bg-gray-100 last:border-b-0 transition cursor-pointer"
