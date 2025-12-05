@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router";
 
 import login from "/login.webp";
-import { loginUser } from "../redux/slices/authSlice";
+import { clearError, loginUser } from "../redux/slices/authSlice";
 import { mergeCart } from "../redux/slices/cartSlice";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, guestId } = useSelector((state: any) => state.auth);
+  const { user, guestId, loading, error } = useSelector(
+    (state: any) => state.auth
+  );
   const { cart } = useSelector((state: any) => state.cart);
 
   const [email, setEmail] = useState<string>("");
@@ -35,6 +37,7 @@ const LoginPage = () => {
         navigate(isCheckoutRedirect ? "/checkout" : "/");
       }
     }
+    dispatch(clearError());
   }, [dispatch, user, guestId, cart, navigate, isCheckoutRedirect]);
 
   return (
@@ -93,8 +96,12 @@ const LoginPage = () => {
             type="submit"
             className="w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition-all"
           >
-            Sign In
+            {loading ? "Signing in..." : "Sign in"}
           </button>
+
+          {error && (
+            <p className="text-center text-red-500 py-2 mt-3">Error: {error}</p>
+          )}
 
           <p className="mt-6 text-center text-sm">
             Don't have an account yet?{" "}

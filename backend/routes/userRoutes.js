@@ -55,11 +55,19 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    if (!email) {
+      return res.status(400).json({ message: "Email must be provided!" });
+    }
+
     // Find the user by email
     let user = await User.findOne({ email });
 
-    if (!user)
-      return res.status(400).json({ message: "Email must be provided!" });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "There's no email like this yet. Create one" });
+    }
+
     const isMatch = await user.matchPassword(password);
 
     if (!isMatch)

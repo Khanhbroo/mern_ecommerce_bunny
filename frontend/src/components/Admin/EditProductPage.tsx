@@ -24,9 +24,11 @@ const initialProductData: EditProduct = {
   images: [
     {
       url: "",
+      altText: "",
     },
     {
       url: "",
+      altText: "",
     },
   ],
 };
@@ -76,17 +78,17 @@ const EditProductPage = () => {
 
     try {
       setIsUploading(true);
-      const data = await axios.post(`${API_URL}/api/upload`, formData, {
+      const response = await axios.post(`${API_URL}/api/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+
+      const imageUrl = response.data.imageUrl;
+
       setProductData((prevData) => ({
         ...prevData,
-        images: [
-          ...prevData.images,
-          { url: data.imageUrl, altText: data.imageUrl },
-        ],
+        images: [...prevData.images, { url: imageUrl, altText: imageUrl }],
       }));
       setIsUploading(false);
     } catch (error) {
@@ -256,6 +258,7 @@ const EditProductPage = () => {
             className="border border-gray-300 px-3 py-2 rounded-md"
             onChange={handleImageUpload}
           />
+          {isUploading && <p>Uploading Image...</p>}
           <div className="flex gap-4 mt-4">
             {productData.images.map((image, index) => (
               <div key={index}>

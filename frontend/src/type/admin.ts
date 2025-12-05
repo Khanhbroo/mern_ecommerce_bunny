@@ -20,6 +20,7 @@ export type EditProduct = {
   gender: string;
   images: {
     url: string;
+    altText: string;
   }[];
 };
 
