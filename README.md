@@ -1,7 +1,7 @@
 # 🐰 EcommerceBunny
 **“Shop smart, hop fast!”**
 
-A modern, full-stack e-commerce application built for speed and simplicity. Designed to provide a seamless shopping experience with secure payments, admin management, and a responsive UI. Built with the **MERN Stack** and **TypeScript** for robust performance.
+A modern, full-stack e-commerce application built for speed and simplicity. Designed to provide a seamless shopping experience with secure payments, admin management, and a responsive UI. Built with the **MERN Stack** (**TypeScript** on the frontend and **Node.js/Express** on the backend) for robust performance.
 
 ---
 
@@ -22,11 +22,11 @@ https://mern-ecommerce-bunny-frontend.onrender.com
 
 | Language / Technology | Description |
 |----------------------|-------------|
-| **TypeScript**       | Strong-typed logic for both backend and frontend reliability. |
+| **TypeScript (Frontend)** | Strongly typed React components, pages, and Redux slices (`frontend/src/`). |
 | **React (Vite)**     | Blazing fast frontend with modern hooks and component architecture. |
 | **Redux Toolkit**    | Efficient state management for cart, user, and product data. |
 | **Tailwind CSS**     | Utility-first CSS for rapid, responsive UI design. |
-| **Node.js & Express**| Scalable backend REST API. |
+| **Node.js & Express 5**| REST API in JavaScript (ESM) with JWT auth & Upstash Redis rate limiting (`backend/`). |
 | **MongoDB (Mongoose)**| Flexible NoSQL database for products, users, and orders. |
 | **PayPal API**       | Secure payment integration. |
 | **Cloudinary**       | Optimized image storage and delivery. |
@@ -37,11 +37,15 @@ https://mern-ecommerce-bunny-frontend.onrender.com
 
 ```
 EcommerceBunny/
-├── backend/               # Backend API
-│   ├── models/            # Database schemas (Product, User, Order)
-│   ├── routes/            # API endpoints
-│   ├── config/            # DB connection & env setup
-│   ├── server.js          # Entry point
+├── backend/               # Backend API (JavaScript / Express 5)
+│   ├── config/            # MongoDB connection setup
+│   ├── data/              # Seed product catalog data
+│   ├── middleware/        # JWT authentication & authorization
+│   ├── models/            # Mongoose schemas (Product, User, Cart, Order, Checkout, Subscriber)
+│   ├── rateLimit/         # Upstash Redis sliding-window rate limiter
+│   ├── routes/            # REST API routes (products, cart, orders, checkout, upload, admin)
+│   ├── seeder.js          # Database seeder script
+│   ├── server.js          # Express entry point
 │   └── package.json       # Backend dependencies
 ├── frontend/              # Frontend UI
 │   ├── src/
@@ -81,8 +85,8 @@ EcommerceBunny/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/Khanhbroo/EcommerceBunny.git
-cd EcommerceBunny
+git clone https://github.com/Khanhbroo/mern_ecommerce_bunny.git
+cd mern_ecommerce_bunny
 ```
 
 ### 2. Install dependencies
@@ -110,7 +114,8 @@ JWT_SECRET=your_jwt_secret
 CLOUDINARY_NAME=...
 CLOUDINARY_API_KEY=...
 CLOUDINARY_API_SECRET=...
-VITE_PAYPAL_SECRET_KEY=...
+UPSTASH_REDIS_REST_URL=...
+UPSTASH_REDIS_REST_TOKEN=...
 ```
 
 **Frontend `.env`**:
